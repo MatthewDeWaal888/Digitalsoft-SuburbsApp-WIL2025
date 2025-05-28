@@ -24,3 +24,30 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 **Minimum SDK version:** 30
 
 **Recommended Android Emulator:** Pixel 2 API 35 (**system-image: R**)
+
+---
+
+### User Interface (UI) styling
+**The Suburbs Services** color palette:
+
+|Description|Color (HEX)|
+|-----------|-----------|
+|Menu section 1|#04299a|
+|Menu section 2|#0e45fb|
+|Menu and button text|#fff3fe|
+|Button|#f8007a **and** #0e45fb|
+|Bottom of page|#030e32|
+|Footer|#000000|
+|Footer text|#ffffff|
+
+**The Suburbs Services** font palette:
+
+**- Sans-serif**
+
+**- Helvetica Neue**
+
+**- Helvetica**
+
+**- Arial**
+
+
