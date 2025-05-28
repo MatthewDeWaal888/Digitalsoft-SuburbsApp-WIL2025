@@ -12,3 +12,15 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 |Matthew Darlow|Research & Requirements Lead|
 |Matthew De Waal|Frontend/Backend Developer|
 |Jesse Weeder|Developer & Research Assistant|
+
+---
+### Technical Details
+**Integrated Development Environment (IDE):** Android Studio
+
+**Written in:** Kotlin
+
+**Platform:** Android
+
+**Minimum SDK version:** 30
+
+**Recommended Android Emulator:** Pixel 2 API 35 (**system-image: R**)
