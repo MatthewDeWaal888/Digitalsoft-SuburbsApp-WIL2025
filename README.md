@@ -58,6 +58,21 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 
 ---
 
+### Android Development Setup
+**Step 1:** Download this GitHub repository to your device.
+
+**Step 2:** Open the Android project using Android Studio.
+
+**Step 3:** Change the project's Android SDK location to your Android SDK location.
+
+**Step 4:** Create a new Android Virtual Device to run the application.
+
+**Step 5:** Select the Pixel 2 API 35 profile with the R system image selected.
+
+**Step 6:** Compile and run the project.
+
+---
+
 ### User Interface (UI) styling
 **The Suburbs Services** color palette:
 
