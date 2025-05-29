@@ -54,7 +54,7 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 
 **Minimum SDK version:** 30
 
-**Recommended Android Emulator:** Pixel 2 API 35 (**system-image: R**)
+**Recommended Android Emulator:** Pixel 2 API 35 (**system-image: VanillaIceCream**)
 
 ---
 
@@ -67,7 +67,7 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 
 **Step 4:** Create a new Android Virtual Device to run the application.
 
-**Step 5:** Select the Pixel 2 API 35 profile with the R system image selected.
+**Step 5:** Select the Pixel 2 API 35 device definition with the VanillaIceCream system image selected.
 
 **Step 6:** Compile and run the project.
 
