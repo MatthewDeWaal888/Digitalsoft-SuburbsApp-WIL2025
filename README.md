@@ -3,6 +3,10 @@
 
 **Internal stakeholder (organization):** Digitalsoft Engineers
 
+**Abbreviation for Digitalsoft Engineers:** DSE
+
+**Short name for Digitalsoft Engineers:** Digitalsoft
+
 **External stakeholder (organization):** The Suburbs Services
 
 ![Digitalsoft Engineers](Digitalsoft-Engineers-company-logo.png)
@@ -39,6 +43,8 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 **Integrated Development Environment (IDE):** Android Studio
 
 **Android Project Name:** TheSuburbsServices
+
+**Android Package Name:** com.dse.thesuburbsservices
 
 **Output APK file:** TheSuburbsServices.apk
 
