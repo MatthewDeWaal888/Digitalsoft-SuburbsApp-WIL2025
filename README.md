@@ -6,8 +6,9 @@
 **External stakeholder (organization):** The Suburbs Services
 
 ![Digitalsoft Engineers](Digitalsoft-Engineers-company-logo.png)
+![The Suburbs Services](TheSuburbsServices-logo-2.png)
 
-We are an organization called Digitalsoft Engineers that focuses on Web and Mobile Application Development in the ICT sector. Our aim for this project is to deliver a mobile application for our stakeholder **The Suburbs Services**. This project aims to mimic the stakeholder's website at <https://www.thesuburbsservices.co.za> to create a mobile app version. The mobile application will be developed for the Android platform.
+We are an organization called Digitalsoft Engineers that focuses on Web and Mobile Application Development in the ICT sector. Our aim for this project is to deliver a mobile application for our external stakeholder **The Suburbs Services**. This project aims to mimic the external stakeholder's website at <https://www.thesuburbsservices.co.za> to create a mobile app version. The mobile application will be developed for the Android platform.
 
 **Team members (Internal):**
 |Full Name|Student Number|Primary Role|Responsibilities|
@@ -24,6 +25,12 @@ We are an organization called Digitalsoft Engineers that focuses on Web and Mobi
 |Mr. Nthato Mokoena|CEO – The Suburbs Services|Approves and provides project requirements|
 |Admin Staff – Suburbs|Day-to-Day NPO Staff Users|Will use system to manage events or services|
 |Volunteers & Donors|End-Users|Interface with donation or volunteer features|
+
+**Team members (Academic):**
+|Name|Primary Role|Interest in the Project|
+|----|----|----|
+|WIL Coordinator|Academic Oversight|Reviews and approves project scope|
+|Lecturer|Module Facilitator|Reviews deliverables, provides academic input|
 
 ---
 ### Technical Details
