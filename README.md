@@ -10,6 +10,8 @@
 
 We are an organization called Digitalsoft Engineers that focuses on Web and Mobile Application Development in the ICT sector. Our aim for this project is to deliver a mobile application for our external stakeholder **The Suburbs Services**. This project aims to mimic the external stakeholder's website at <https://www.thesuburbsservices.co.za> to create a mobile app version. The mobile application will be developed for the Android platform.
 
+---
+
 **Team members (Internal):**
 |Full Name|Student Number|Primary Role|Responsibilities|
 |----|----|----|----|
