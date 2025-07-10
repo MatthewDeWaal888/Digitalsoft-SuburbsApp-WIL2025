@@ -5,9 +5,13 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dse.thesuburbsservices.databinding.ActivityMainPhoneLightBinding
+import com.dse.thesuburbsservices.pages.ScreenNavigate
+import com.dse.thesuburbsservices.pages.home_fragment
+import com.dse.thesuburbsservices.pages.listingDirectory_fragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
             val binding = ActivityMainPhoneLightBinding.inflate(this.layoutInflater)
             setContentView(binding.root)
+            ScreenNavigate(this.supportFragmentManager, binding.clDisplay, home_fragment)
 
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -26,14 +31,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             binding.btnMenu.setOnClickListener {
-                btnMenu_OnClick(binding.btnMenu)
+                btnMenu_OnClick(binding.btnMenu, binding.clDisplay)
             }
         }
     }
 
-    private fun btnMenu_OnClick(view: View)
+    private fun btnMenu_OnClick(view1: View, view2: View)
     {
-        val popupMenu = PopupMenu(this, view)
+        val popupMenu = PopupMenu(this, view1)
         popupMenu.menu.add("Home")
         popupMenu.menu.add("Listing Directory")
         popupMenu.menu.add("What’s Happening")
@@ -51,98 +56,99 @@ class MainActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener {
             when(it.title)
             {
-                "Home" -> btnMenu_item1_onclick()
-                "Listing Directory" -> btnMenu_item2_onclick()
-                "What's Happening" -> btnMenu_item3_onclick()
-                "Corporate Social Responsibility" -> btnMenu_item4_onclick()
-                "40 Kids 40 Smiles" -> btnMenu_item5_onclick()
-                "Zach Gives Back" -> btnMenu_item6_onclick()
-                "Garth My Mate" -> btnMenu_item7_onclick()
-                "About Us" -> btnMenu_item8_onclick()
-                "About Us - Sports" -> btnMenu_item9_onclick()
-                "About Us - Hospitality" -> btnMenu_item10_onclick()
-                "About Us - Corporate" -> btnMenu_item11_onclick()
-                "Staff Login" -> btnMenu_item12_onclick()
-                "Advertise With Us" -> btnMenu_item13_onclick()
+                "Home" -> btnMenu_item1_onclick(view2)
+                "Listing Directory" -> btnMenu_item2_onclick(view2)
+                "What's Happening" -> btnMenu_item3_onclick(view2)
+                "Corporate Social Responsibility" -> btnMenu_item4_onclick(view2)
+                "40 Kids 40 Smiles" -> btnMenu_item5_onclick(view2)
+                "Zach Gives Back" -> btnMenu_item6_onclick(view2)
+                "Garth My Mate" -> btnMenu_item7_onclick(view2)
+                "About Us" -> btnMenu_item8_onclick(view2)
+                "About Us - Sports" -> btnMenu_item9_onclick(view2)
+                "About Us - Hospitality" -> btnMenu_item10_onclick(view2)
+                "About Us - Corporate" -> btnMenu_item11_onclick(view2)
+                "Staff Login" -> btnMenu_item12_onclick(view2)
+                "Advertise With Us" -> btnMenu_item13_onclick(view2)
             }
             true
         }
+        popupMenu.show()
     }
 
     // Occurs when 'Home' is clicked.
-    private fun btnMenu_item1_onclick()
+    private fun btnMenu_item1_onclick(view: View)
     {
-
+        ScreenNavigate(this.supportFragmentManager, view as ConstraintLayout, home_fragment)
     }
 
     // Occurs when 'Listing Directory' is clicked.
-    private fun btnMenu_item2_onclick()
+    private fun btnMenu_item2_onclick(view: View)
     {
-
+        ScreenNavigate(this.supportFragmentManager, view as ConstraintLayout, listingDirectory_fragment)
     }
 
     // Occurs when 'What's Happening' is clicked.
-    private fun btnMenu_item3_onclick()
+    private fun btnMenu_item3_onclick(view: View)
     {
 
     }
 
     // Occurs when 'Corporate Social Responsibility' is clicked.
-    private fun btnMenu_item4_onclick()
+    private fun btnMenu_item4_onclick(view: View)
     {
 
     }
 
     // Occurs when '40 Kids 40 Smiles' is clicked.
-    private fun btnMenu_item5_onclick()
+    private fun btnMenu_item5_onclick(view: View)
     {
 
     }
 
     // Occurs when 'Zach Gives Back' is clicked.
-    private fun btnMenu_item6_onclick()
+    private fun btnMenu_item6_onclick(view: View)
     {
 
     }
 
     // Occurs when 'Garth My Mate' is clicked.
-    private fun btnMenu_item7_onclick()
+    private fun btnMenu_item7_onclick(view: View)
     {
 
     }
 
     // Occurs when 'About Us' is clicked.
-    private fun btnMenu_item8_onclick()
+    private fun btnMenu_item8_onclick(view: View)
     {
 
     }
 
     // Occurs when 'About Us - Sports' is clicked.
-    private fun btnMenu_item9_onclick()
+    private fun btnMenu_item9_onclick(view: View)
     {
 
     }
 
     // Occurs when 'About Us - Hospitality' is clicked.
-    private fun btnMenu_item10_onclick()
+    private fun btnMenu_item10_onclick(view: View)
     {
 
     }
 
     // Occurs when 'About Us - Corporate' is clicked.
-    private fun btnMenu_item11_onclick()
+    private fun btnMenu_item11_onclick(view: View)
     {
 
     }
 
     // Occurs when 'Staff Login' is clicked.
-    private fun btnMenu_item12_onclick()
+    private fun btnMenu_item12_onclick(view: View)
     {
 
     }
 
     // Occurs when 'Advertise With Us' is clicked.
-    private fun btnMenu_item13_onclick()
+    private fun btnMenu_item13_onclick(view: View)
     {
 
     }
