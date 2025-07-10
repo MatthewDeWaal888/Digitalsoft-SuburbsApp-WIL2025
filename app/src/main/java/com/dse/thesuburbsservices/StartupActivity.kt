@@ -7,6 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
+import com.dse.thesuburbsservices.net.GET
+import com.dse.thesuburbsservices.net.TSS_ADDRESS
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 val APP_THEME_LIGHT = 1
 val APP_THEME_DARK = 2
