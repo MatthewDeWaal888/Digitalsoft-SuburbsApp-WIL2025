@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.dse.thesuburbsservices.databinding.ActivityMainPhoneLightBinding
 import com.dse.thesuburbsservices.pages.ScreenNavigate
 import com.dse.thesuburbsservices.pages.home_fragment
-import com.dse.thesuburbsservices.pages.listingDirectory_fragment
+import com.dse.thesuburbsservices.pages.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,10 @@ class MainActivity : AppCompatActivity() {
 
             val binding = ActivityMainPhoneLightBinding.inflate(this.layoutInflater)
             setContentView(binding.root)
-            ScreenNavigate(this.supportFragmentManager, binding.clDisplay, home_fragment)
+
+            tss_fragmentManager = this.supportFragmentManager
+            tss_clDisplay = binding.clDisplay
+            ScreenNavigate(home_fragment)
 
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -78,13 +81,13 @@ class MainActivity : AppCompatActivity() {
     // Occurs when 'Home' is clicked.
     private fun btnMenu_item1_onclick(view: View)
     {
-        ScreenNavigate(this.supportFragmentManager, view as ConstraintLayout, home_fragment)
+        ScreenNavigate(home_fragment)
     }
 
     // Occurs when 'Listing Directory' is clicked.
     private fun btnMenu_item2_onclick(view: View)
     {
-        ScreenNavigate(this.supportFragmentManager, view as ConstraintLayout, listingDirectory_fragment)
+        ScreenNavigate(listingDirectory_fragment)
     }
 
     // Occurs when 'What's Happening' is clicked.

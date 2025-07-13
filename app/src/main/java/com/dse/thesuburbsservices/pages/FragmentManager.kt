@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentManager
 
 val home_fragment = HomeFragment()
 val listingDirectory_fragment = ListingDirectoryFragment()
+lateinit var tss_fragmentManager: FragmentManager
+lateinit var tss_clDisplay: ConstraintLayout
 
 
-fun ScreenNavigate(fm: FragmentManager, clDisplay: ConstraintLayout, page: Fragment)
+fun ScreenNavigate(page: Fragment)
 {
-    val transaction = fm.beginTransaction()
-    transaction.replace(clDisplay.id, page)
+    val transaction = tss_fragmentManager.beginTransaction()
+    transaction.replace(tss_clDisplay.id, page)
     transaction.commit()
 }

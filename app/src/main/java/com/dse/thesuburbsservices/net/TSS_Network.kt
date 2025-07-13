@@ -38,3 +38,8 @@ suspend fun POST(request_url: String, headers: Dictionary<String, String>, body:
         request.post(requestBody)
     }.join()
 }
+
+fun combinePath(rootPath: String, relativePath: String): String
+{
+    return "$rootPath/$relativePath"
+}
