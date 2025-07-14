@@ -20,9 +20,6 @@ class ListingDirectoryPhoneAdapter(context: Context, data: Array<ListingDirector
         val tvDisplay = view.findViewById<TextView>(R.id.tvDisplay)
         val item = getItem(position)
 
-        clImage.background = item?.image?.toDrawable(this.context.resources)
-        tvDisplay.text = item?.text
-
         return view
     }
 }
