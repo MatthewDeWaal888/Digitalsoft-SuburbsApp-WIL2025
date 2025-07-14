@@ -2,6 +2,7 @@ package com.dse.thesuburbsservices
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
