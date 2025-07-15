@@ -54,21 +54,12 @@ class ListingDirectoryHelper(context: Context) {
                             json
                         ).toList().toTypedArray()
                     )
-                    onDataReceived.onReceiveValue(listings.toTypedArray())
 
-                    val script2 = "function performClick() { document.getElementsByClassName('job-manager-pagination')[0].childNodes[0].childNodes[$pageNum].childNodes[0].click(); } performClick();"
-                    view?.evaluateJavascript(script2) { result1 ->
-                        Thread.sleep(6000)
-
-                        view.evaluateJavascript("document.body.innerHTML.toString();") { result2 ->
-                            val html = Json.decodeFromString<String>(result2)
-                            val doc = Jsoup.parse(html)
-
-                            val listings = doc.getElementsByClass("col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item")
-                            val 
+                    getContent(view, 1) {
+                        getContent(view, 3) {
+                            onDataReceived.onReceiveValue(listings.toTypedArray())
                         }
                     }
-                    pageNum++
                 }
             }
         }
@@ -77,9 +68,38 @@ class ListingDirectoryHelper(context: Context) {
         webView?.loadUrl(url)
     }
 
+    private fun getContent(view: WebView?, pageNum: Int, c: ValueCallback<Int>)
+    {
+        val script3 = "function performClick() { document.getElementsByClassName('job-manager-pagination')[0].childNodes[0].childNodes[$pageNum].childNodes[0].click(); } performClick();"
+        view?.evaluateJavascript(script3) { result1 ->
+            Thread.sleep(6000)
+
+            view.evaluateJavascript("document.body.innerHTML.toString();") { result2 ->
+                val html = Json.decodeFromString<String>(result2)
+                val doc = Jsoup.parse(html)
+
+                val _listings = doc.getElementsByClass("col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item")
+
+                for(elem in _listings)
+                {
+                    val listingDirectory = ListingDirectory()
+                    listingDirectory.listingId = elem.child(0).attr("data-id")
+                    listingDirectory.listingAddress = elem.child(0).attr("data-locations")
+                    val imagePath = elem.child(0).child(0).child(0).children()[1].attributes()["style"]
+                    listingDirectory.imageUrl = imagePath.substring(23, imagePath.length-3)
+                    listingDirectory.text = elem.child(0).getElementsByClass("case27-primary-text listing-preview-title")[0].text()
+                    listingDirectory.contentUrl = elem.child(0).child(0).child(0).attr("href")
+                    listings.add(listingDirectory)
+                }
+
+                c.onReceiveValue(0)
+            }
+        }
+    }
+
     private fun getListingDirectory(view: WebView?, callback: ValueCallback<String>)
     {
-        val script = "function getListings() { let listings = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item');let result = [];for(let i = 0; i < listings.length; i++){let obj = new Object();obj.listingId = listings[i].childNodes[0].getAttribute('data-id');obj.listingAddress = JSON.parse(listings[i].childNodes[0].getAttribute('data-locations')).address;obj.imageUrl = listings[i].childNodes[0].getAttribute('data-thumbnail');obj.text = listings[i].childNodes[0].getElementsByClassName('case27-primary-text listing-preview-title')[0].innerText;obj.contentUrl = listings[i].childNodes[0].childNodes[0].childNodes[0].getAttribute('href');result[i] = obj;}return JSON.stringify(result); } getListings();"
+        val script = "function getListings() { let listings = document.getElementsByClassName('col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item');let result = [];for(let i = 0; i < listings.length; i++){let obj = new Object();obj.listingId = listings[i].childNodes[0].getAttribute('data-id');obj.listingAddress = JSON.parse(listings[i].childNodes[0].getAttribute('data-locations')).address;let imagePath = listings[i].childNodes[0].childNodes[0].childNodes[0].children[1].getAttribute('data-bg-image');obj.imageUrl = imagePath.substring(5, imagePath.length-2);obj.text = listings[i].childNodes[0].getElementsByClassName('case27-primary-text listing-preview-title')[0].innerText;obj.contentUrl = listings[i].childNodes[0].childNodes[0].childNodes[0].getAttribute('href');result[i] = obj;}return JSON.stringify(result); } getListings();"
 
         view?.evaluateJavascript(script, callback)
     }
