@@ -1,5 +1,6 @@
 package com.dse.thesuburbsservices.net
 
+import com.dse.thesuburbsservices.EMPTY_STRING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -7,6 +8,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okio.IOException
 import java.util.Dictionary
+import kotlin.io.encoding.Base64
 
 val TSS_ADDRESS = "https://www.thesuburbsservices.co.za"
 
@@ -23,6 +25,22 @@ suspend fun GET(request_url: String): String
     }.join()
 
     return html_response
+}
+
+suspend fun GET_BASE64(request_url: String): String
+{
+    var base64String = EMPTY_STRING
+
+    CoroutineScope(Dispatchers.IO).launch {
+        val client = OkHttpClient.Builder().build()
+        val request = Request.Builder().url(request_url).build()
+
+        val response = client.newCall(request).execute()
+        val bytes = response.body.bytes()
+        base64String = Base64.encode(bytes)
+    }.join()
+
+    return base64String
 }
 
 suspend fun POST(request_url: String, headers: Dictionary<String, String>, body: String)
