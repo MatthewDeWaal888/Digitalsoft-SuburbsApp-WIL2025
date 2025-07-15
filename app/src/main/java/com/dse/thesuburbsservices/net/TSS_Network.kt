@@ -12,10 +12,13 @@ import kotlin.io.encoding.Base64
 
 val TSS_ADDRESS = "https://www.thesuburbsservices.co.za"
 
+// Sends a GET operation TO A URL/
 suspend fun GET(request_url: String): String
 {
+    // Holds the result (html).
     var html_response = ""
 
+    // Asynchronous operation.
     CoroutineScope(Dispatchers.IO).launch {
         val client = OkHttpClient.Builder().build()
         val request = Request.Builder().url(request_url).build()
@@ -27,6 +30,7 @@ suspend fun GET(request_url: String): String
     return html_response
 }
 
+// Sends A GET operation to the URL, and returns a Base64 string of the content.
 suspend fun GET_BASE64(request_url: String): String
 {
     var base64String = EMPTY_STRING
@@ -43,6 +47,7 @@ suspend fun GET_BASE64(request_url: String): String
     return base64String
 }
 
+// Sends a POST operation to the URL.
 suspend fun POST(request_url: String, headers: Dictionary<String, String>, body: String)
 {
     CoroutineScope(Dispatchers.IO).launch {
