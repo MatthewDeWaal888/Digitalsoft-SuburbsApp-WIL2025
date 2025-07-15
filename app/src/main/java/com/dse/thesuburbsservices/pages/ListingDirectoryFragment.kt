@@ -67,6 +67,8 @@ class ListingDirectoryFragment : Fragment() {
                 clImage.background = bitmap?.toDrawable(this.requireContext().resources)
                 this.layoutDisplay.addView(layoutView)
             }
+
+            val x = 0
         }
     }
 }
