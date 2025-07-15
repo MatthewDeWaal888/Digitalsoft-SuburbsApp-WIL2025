@@ -72,8 +72,7 @@ class ListingDirectoryHelper(context: Context) {
     {
         val script3 = "function performClick() { document.getElementsByClassName('job-manager-pagination')[0].childNodes[0].childNodes[$pageNum].childNodes[0].click(); } performClick();"
         view?.evaluateJavascript(script3) { result1 ->
-            Thread.sleep(6000)
-
+            Thread.sleep(2500)
             view.evaluateJavascript("document.body.innerHTML.toString();") { result2 ->
                 val html = Json.decodeFromString<String>(result2)
                 val doc = Jsoup.parse(html)

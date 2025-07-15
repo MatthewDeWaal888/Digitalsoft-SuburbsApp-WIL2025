@@ -37,9 +37,15 @@ class ListingDirectoryFragment : Fragment() {
 
         layoutDisplay = view.findViewById<LinearLayout>(R.id.layoutDisplay)
 
+        val loadingMessage = TextView(this.requireContext())
+        loadingMessage.text = "Loading content, please wait..."
+        loadingMessage.setTextColor(resources.getColor(R.color.black))
+        layoutDisplay.addView(loadingMessage)
+
         val helper = ListingDirectoryHelper(this.requireContext())
         helper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
             override fun onReceiveValue(value: Array<ListingDirectory>?) {
+                layoutDisplay.removeView(loadingMessage)
                 loadContent(value)
             }
         }
@@ -67,8 +73,6 @@ class ListingDirectoryFragment : Fragment() {
                 clImage.background = bitmap?.toDrawable(this.requireContext().resources)
                 this.layoutDisplay.addView(layoutView)
             }
-
-            val x = 0
         }
     }
 }
