@@ -1,4 +1,4 @@
-package com.dse.thesuburbsservices
+package com.dse.thesuburbsservices.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.dse.thesuburbsservices.APP_THEME_DARK
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
+import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
-import com.dse.thesuburbsservices.net.GET
-import com.dse.thesuburbsservices.net.TSS_ADDRESS
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 // This class represents the StartupActivity screen.

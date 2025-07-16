@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheSuburbsServices">
         <activity
-            android:name=".StartupActivity"
+            android:name=".screens.ListingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.StartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:name=".screens.MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

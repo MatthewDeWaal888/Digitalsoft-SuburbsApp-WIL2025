@@ -16,11 +16,15 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.data.ListingAddress
 import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.net.*
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import kotlinx.coroutines.*
+import kotlinx.serialization.json.Json
 import org.jsoup.*
+import org.jsoup.examples.HtmlToPlainText
 import org.jsoup.parser.*
 import kotlin.io.encoding.Base64
 
@@ -80,6 +84,10 @@ class ListingDirectoryFragment : Fragment() {
                 // Set the text for the tvDisplay view.
                 tvDisplay.text = item.text
 
+                tvDisplay.setOnClickListener {
+                    listing_onclick(item)
+                }
+
                 // Create a Bitmap object.
                 var bitmap: Bitmap? = null
                 // Convert any asynchronous operation to synchronous, using
@@ -94,9 +102,41 @@ class ListingDirectoryFragment : Fragment() {
                 }
                 // Assign the bitmap to the clImage view.
                 clImage.background = bitmap?.toDrawable(this.requireContext().resources)
+
+                clImage.setOnClickListener {
+                    listing_onclick(item)
+                }
+
                 // Add the layoutView to the layoutDisplay view.
                 this.layoutDisplay.addView(layoutView)
             }
         }
+    }
+
+    // Occurs when the user selected a listing to view.
+    private fun listing_onclick(listing: ListingDirectory)
+    {
+        // Run synchronously.
+        runBlocking {
+            val imageContentBase64 = GET_BASE64(listing.imageUrl)
+            val bytes = Base64.decode(imageContentBase64)
+            val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
+
+            AppData.listingImage = bitmap
+
+            val contentHtml = GET(listing.contentUrl)
+            val doc = Jsoup.parse(contentHtml)
+            val pf_body_html = doc.getElementsByClass("pf-body")[0]
+            val converter = HtmlToPlainText()
+            val plainText = converter.getPlainText(pf_body_html)
+
+            AppData.listingContent = plainText
+        }
+
+        AppData.listingName = listing.text
+        AppData.listingLocation = Json.decodeFromString<ListingAddress>(listing.listingAddress.substring(1, listing.listingAddress.length-1))
+
+        // Navigate to the listing fragment.
+        ScreenNavigate(listingFragment)
     }
 }

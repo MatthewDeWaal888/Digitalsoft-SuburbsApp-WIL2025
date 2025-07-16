@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 
 val home_fragment = HomeFragment()
 val listingDirectory_fragment = ListingDirectoryFragment()
+val listingFragment = ListingFragment()
 lateinit var tss_fragmentManager: FragmentManager
 lateinit var tss_clDisplay: ConstraintLayout
 

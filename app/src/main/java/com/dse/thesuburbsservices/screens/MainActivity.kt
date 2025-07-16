@@ -1,14 +1,15 @@
-package com.dse.thesuburbsservices
+package com.dse.thesuburbsservices.screens
 
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebView
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
+import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.databinding.ActivityMainPhoneLightBinding
 import com.dse.thesuburbsservices.pages.ScreenNavigate
 import com.dse.thesuburbsservices.pages.home_fragment
