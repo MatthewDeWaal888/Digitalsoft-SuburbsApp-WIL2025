@@ -13,7 +13,10 @@ lateinit var tss_clDisplay: ConstraintLayout
 // Navigates to a page (Fragment).
 fun ScreenNavigate(page: Fragment)
 {
+    // Begin a fragment transaction.
     val transaction = tss_fragmentManager.beginTransaction()
+    // Assign a page (fragment) to the transaction.
     transaction.replace(tss_clDisplay.id, page)
+    // Start the transaction.
     transaction.commit()
 }

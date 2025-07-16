@@ -14,16 +14,23 @@ import com.dse.thesuburbsservices.pages.ScreenNavigate
 import com.dse.thesuburbsservices.pages.home_fragment
 import com.dse.thesuburbsservices.pages.*
 
+// This class represents the MainActivity class.
 class MainActivity : AppCompatActivity() {
+
+    // Occurs when the activity (screen) is created.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Check if the app is in Light Theme mode.
         if(appTheme == APP_THEME_LIGHT) {
 
+            // Create a binding object for this activity.
             val binding = ActivityMainPhoneLightBinding.inflate(this.layoutInflater)
+            // Set the content view to the binding.
             setContentView(binding.root)
 
+            // Initialization
             tss_fragmentManager = this.supportFragmentManager
             tss_clDisplay = binding.clDisplay
             ScreenNavigate(home_fragment)
@@ -34,15 +41,20 @@ class MainActivity : AppCompatActivity() {
                 insets
             }
 
+            // Occurs when the user clicked the drop-down menu.
             binding.btnMenu.setOnClickListener {
                 btnMenu_OnClick(binding.btnMenu, binding.clDisplay)
             }
         }
     }
 
+    // Occurs when the drop-down menu is clicked.
     private fun btnMenu_OnClick(view1: View, view2: View)
     {
+        // Create a PopupMenu object.
         val popupMenu = PopupMenu(this, view1)
+
+        // Add the menu items to the PopupMenu.
         popupMenu.menu.add("Home")
         popupMenu.menu.add("Listing Directory")
         popupMenu.menu.add("What’s Happening")
@@ -57,7 +69,9 @@ class MainActivity : AppCompatActivity() {
         popupMenu.menu.add("Staff Login")
         popupMenu.menu.add("Advertise With Us")
 
+        // Assign an onclick listener to the PopupMenu.
         popupMenu.setOnMenuItemClickListener {
+            // Case statement.
             when(it.title)
             {
                 "Home" -> btnMenu_item1_onclick(view2)
@@ -76,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        // Show the Popup Menu to the user.
         popupMenu.show()
     }
 
