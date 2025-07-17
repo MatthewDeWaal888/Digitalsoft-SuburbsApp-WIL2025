@@ -44,7 +44,7 @@ class ListingFragment : Fragment() {
 
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.controller.setZoom(20.0)
-        mapView.controller.setCenter(GeoPoint(listingAddress!!.lat, listingAddress.lng))
+        mapView.controller.setCenter(GeoPoint(listingAddress.lat, listingAddress.lng))
 
         btnBack.setOnClickListener {
             ScreenNavigate(listingDirectory_fragment)

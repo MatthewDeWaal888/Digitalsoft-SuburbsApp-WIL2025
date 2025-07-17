@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.service.carrier.CarrierMessagingService.ResultCallback
 import android.util.AttributeSet
 import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.dse.thesuburbsservices.EMPTY_STRING
@@ -22,8 +23,6 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jsoup.*
-import org.jsoup.nodes.Element
-import kotlin.coroutines.suspendCoroutine
 
 
 // This class represents a utility function to get all the listing
@@ -35,7 +34,9 @@ class ListingDirectoryHelper(context: Context) {
     private var webView: WebView? = null
     private var listings = ArrayList<ListingDirectory>()
     private val jsonConvert = Json { encodeDefaults = true }
-    lateinit var onDataReceived: ValueCallback<Array<ListingDirectory>>
+    private val task = CompletableDeferred<Int>()
+    var onDataReceived: ValueCallback<Array<ListingDirectory>>? = null
+    var onDataFinished: ValueCallback<Array<ListingDirectory>>? = null
 
     // Initialization scope.
     init {
@@ -57,33 +58,42 @@ class ListingDirectoryHelper(context: Context) {
                     // Obtain the html (in json format) and decode it as plain text.
                     val json = Json.decodeFromString<String>(result)
                     // Add all the objects to the array 'listings'.
-                    listings.addAll(
+                    val items =
                         Json.decodeFromString(
                             ListSerializer(ListingDirectory.serializer()),
                             json
                         ).toList().toTypedArray()
-                    )
+                    listings.addAll(items)
+                    onDataReceived?.onReceiveValue(items)
+
+                    if(!task.isCompleted)
+                    {
+                        task.complete(1)
+                    }
 
                     // Get the content from the second page.
                     getContent(view, 1) {
+                        onDataReceived?.onReceiveValue(it)
                         // Get the content from the third page.
                         getContent(view, 3) {
                             // Perform an onDataReceived callback.
-                            onDataReceived.onReceiveValue(listings.toTypedArray())
+                            onDataReceived?.onReceiveValue(it)
+                            onDataFinished?.onReceiveValue(listings.toTypedArray())
                         }
                     }
                 }
             }
         }
+        webView?.webChromeClient = WebChromeClient()
 
         // Combine the base url with the relative path 'listing-directory'.
         val url = combinePath(TSS_ADDRESS, "listing-directory")
-        // LOad the url.
+        // Load the url.
         webView?.loadUrl(url)
     }
 
     // Gets the content, excluding the first page from the Listing Directory page.
-    private fun getContent(view: WebView?, pageNum: Int, c: ValueCallback<Int>)
+    private fun getContent(view: WebView?, pageNum: Int, c: ValueCallback<Array<ListingDirectory>>)
     {
         // script3: JavaScript that will be executed to navigate to the specific page.
         val script3 = "function performClick() { document.getElementsByClassName('job-manager-pagination')[0].childNodes[0].childNodes[$pageNum].childNodes[0].click(); } performClick();"
@@ -100,6 +110,7 @@ class ListingDirectoryHelper(context: Context) {
 
                 // Obtain all the listings.
                 val _listings = doc.getElementsByClass("col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item")
+                val items = ArrayList<ListingDirectory>()
 
                 // Iterate through the listings.
                 for(elem in _listings)
@@ -116,11 +127,12 @@ class ListingDirectoryHelper(context: Context) {
                     listingDirectory.contentUrl = elem.child(0).child(0).child(0).attr("href")
 
                     // Add the object to the listing array.
-                    listings.add(listingDirectory)
+                    items.add(listingDirectory)
                 }
+                listings.addAll(items.toTypedArray())
 
                 // Perform a callback operation.
-                c.onReceiveValue(0)
+                c.onReceiveValue(items.toTypedArray())
             }
         }
     }
@@ -156,5 +168,10 @@ class ListingDirectoryHelper(context: Context) {
     fun getListings(): Array<ListingDirectory>
     {
         return listings.toTypedArray()
+    }
+
+    fun getTask(): CompletableDeferred<Int>
+    {
+        return task
     }
 }

@@ -44,25 +44,7 @@ class ListingDirectoryFragment : Fragment() {
 
         // Obtain the layoutDisplay view.
         layoutDisplay = view.findViewById<LinearLayout>(R.id.layoutDisplay)
-
-        // Declare and instantiate a TextView object.
-        val loadingMessage = TextView(this.requireContext())
-        // Assign the text to the TextView.
-        loadingMessage.text = "Loading content, please wait..."
-        // Set the text color.
-        loadingMessage.setTextColor(resources.getColor(R.color.black))
-        // Add the textview to the layoutDisplay.
-        layoutDisplay.addView(loadingMessage)
-
-        // Declare and instantiate a ListingDirectoryHelper object.
-        val helper = ListingDirectoryHelper(this.requireContext())
-        // Assign  the ValueCallback listener.
-        helper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
-            override fun onReceiveValue(value: Array<ListingDirectory>?) {
-                layoutDisplay.removeView(loadingMessage)
-                loadContent(value)
-            }
-        }
+        loadContent(AppData.listings.toTypedArray())
 
         return view
     }

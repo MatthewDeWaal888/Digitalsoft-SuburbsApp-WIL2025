@@ -1,7 +1,9 @@
 package com.dse.thesuburbsservices.screens
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.webkit.ValueCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +12,15 @@ import com.dse.thesuburbsservices.APP_THEME_DARK
 import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
+import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
+import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
@@ -45,8 +55,24 @@ class StartupActivity : AppCompatActivity() {
 
             // Occurs when btnStartNow is clicked.
             binding.btnStartNow.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                // Declare and instantiate a ListingDirectoryHelper object.
+                val helper = ListingDirectoryHelper(this)
+                // Assign  the ValueCallback listener.
+                helper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
+                    override fun onReceiveValue(value: Array<ListingDirectory>?) {
+                        AppData.listings.addAll(value!!)
+                    }
+                }
+
+                val dlg = showLoadingScreen()
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    helper.getTask().await()
+                }.invokeOnCompletion {
+                    dlg.dismiss()
+                    startApp()
+                }
+
             }
 
             // Occurs when btnExit is clicked.
@@ -59,5 +85,20 @@ class StartupActivity : AppCompatActivity() {
         {
 
         }
+    }
+
+    private fun startApp()
+    {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun showLoadingScreen(): Dialog
+    {
+        val dlgLoadingScreen = Dialog(this)
+        dlgLoadingScreen.setContentView(R.layout.layout_loading_phone_light)
+        dlgLoadingScreen.show()
+
+        return dlgLoadingScreen
     }
 }
