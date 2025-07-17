@@ -11,6 +11,9 @@ import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.views.MapView;
 
 
 // This class represents the StartupActivity screen.
@@ -18,6 +21,8 @@ class StartupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        Configuration.getInstance().load(getApplicationContext(), getSharedPreferences("osmdroid", MODE_PRIVATE));
 
         // Check if the system theme is in Dark Theme mode.
         if(resources.configuration.isNightModeActive)
