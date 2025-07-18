@@ -74,23 +74,22 @@ class ListingDirectoryFragment : Fragment() {
                 var bitmap: Bitmap? = null
                 // Convert any asynchronous operation to synchronous, using
                 // the runBlocking method.
-                runBlocking {
+                CoroutineScope(Dispatchers.Main).launch {
                     // Get the image (asynchronous).
-                    val image = GET_BASE64(item.imageUrl)
-                    // Convert the base64 string to bytes.
-                    val bytes = Base64.decode(image)
+                    val image = GET_BYTES(item.imageUrl)
                     // Create a Bitmap object from the byte array.
-                    bitmap = BitmapFactory.decodeStream(bytes.inputStream())
-                }
-                // Assign the bitmap to the clImage view.
-                clImage.background = bitmap?.toDrawable(this.requireContext().resources)
+                    bitmap = BitmapFactory.decodeStream(image!!.inputStream())
+                }.invokeOnCompletion {
+                    // Assign the bitmap to the clImage view.
+                    clImage.background = bitmap?.toDrawable(this.requireContext().resources)
 
-                clImage.setOnClickListener {
-                    listing_onclick(item)
-                }
+                    clImage.setOnClickListener {
+                        listing_onclick(item)
+                    }
 
-                // Add the layoutView to the layoutDisplay view.
-                this.layoutDisplay.addView(layoutView)
+                    // Add the layoutView to the layoutDisplay view.
+                    this.layoutDisplay.addView(layoutView)
+                }
             }
         }
     }
@@ -99,10 +98,9 @@ class ListingDirectoryFragment : Fragment() {
     private fun listing_onclick(listing: ListingDirectory)
     {
         // Run synchronously.
-        runBlocking {
-            val imageContentBase64 = GET_BASE64(listing.imageUrl)
-            val bytes = Base64.decode(imageContentBase64)
-            val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
+        CoroutineScope(Dispatchers.Main).launch {
+            val imageContent = GET_BYTES(listing.imageUrl)
+            val bitmap = BitmapFactory.decodeStream(imageContent!!.inputStream())
 
             AppData.listingImage = bitmap
 
@@ -113,12 +111,17 @@ class ListingDirectoryFragment : Fragment() {
             val plainText = converter.getPlainText(pf_body_html)
 
             AppData.listingContent = plainText
+        }.invokeOnCompletion {
+            AppData.listingName = listing.text
+            AppData.listingLocation = Json.decodeFromString<ListingAddress>(
+                listing.listingAddress.substring(
+                    1,
+                    listing.listingAddress.length - 1
+                )
+            )
+
+            // Navigate to the listing fragment.
+            ScreenNavigate(listingFragment)
         }
-
-        AppData.listingName = listing.text
-        AppData.listingLocation = Json.decodeFromString<ListingAddress>(listing.listingAddress.substring(1, listing.listingAddress.length-1))
-
-        // Navigate to the listing fragment.
-        ScreenNavigate(listingFragment)
     }
 }

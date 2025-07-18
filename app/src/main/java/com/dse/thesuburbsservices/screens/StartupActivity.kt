@@ -66,7 +66,7 @@ class StartupActivity : AppCompatActivity() {
 
                 val dlg = showLoadingScreen()
 
-                CoroutineScope(Dispatchers.IO).launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     helper.getTask().await()
                 }.invokeOnCompletion {
                     dlg.dismiss()

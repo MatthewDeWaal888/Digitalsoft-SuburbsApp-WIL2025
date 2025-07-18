@@ -54,6 +54,28 @@ suspend fun GET_BASE64(request_url: String): String
     return base64String
 }
 
+// Sends A GET operation to the URL, and returns the bytes of the content.
+suspend fun GET_BYTES(request_url: String): ByteArray?
+{
+    var bytes: ByteArray? = null
+
+    // Asynchronous scope.
+    CoroutineScope(Dispatchers.IO).launch {
+        // Declare and instantiate an OkHttpClient object.
+        val client = OkHttpClient.Builder().build()
+        // Declare and instantiate a Request object.
+        val request = Request.Builder().url(request_url).build()
+
+        // Get the response from the client request.
+        val response = client.newCall(request).execute()
+        // Obtain the bytes from the response body.
+        bytes = response.body.bytes()
+        // Convert the bytes to a Base64 string.
+    }.join() // Wait for the operation to finish.
+
+    return bytes
+}
+
 // Sends a POST operation to the URL.
 suspend fun POST(request_url: String, headers: Dictionary<String, String>, body: String)
 {

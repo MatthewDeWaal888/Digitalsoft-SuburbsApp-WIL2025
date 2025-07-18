@@ -45,6 +45,8 @@ class ListingDirectoryHelper(context: Context) {
         // Assign the settings to the WebView.
         webView?.settings?.javaScriptEnabled = true
         webView?.settings?.javaScriptCanOpenWindowsAutomatically = false
+        webView?.settings?.blockNetworkImage = true
+        webView?.settings?.loadsImagesAutomatically = false
 
         // Assign the WebViewClient object, to access the listeners.
         webView?.webViewClient = object : WebViewClient() {
@@ -62,7 +64,7 @@ class ListingDirectoryHelper(context: Context) {
                         Json.decodeFromString(
                             ListSerializer(ListingDirectory.serializer()),
                             json
-                        ).toList().toTypedArray()
+                        ).toList().toTypedArray().filter { it.imageUrl != EMPTY_STRING }.toTypedArray()
                     listings.addAll(items)
                     onDataReceived?.onReceiveValue(items)
 
@@ -129,7 +131,7 @@ class ListingDirectoryHelper(context: Context) {
                     // Add the object to the listing array.
                     items.add(listingDirectory)
                 }
-                listings.addAll(items.toTypedArray())
+                listings.addAll(items.toTypedArray().filter { it.imageUrl != EMPTY_STRING })
 
                 // Perform a callback operation.
                 c.onReceiveValue(items.toTypedArray())
