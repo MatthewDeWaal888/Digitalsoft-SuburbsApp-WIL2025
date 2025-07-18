@@ -15,6 +15,7 @@ import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
+import com.dse.thesuburbsservices.showLoadingScreen
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -64,7 +65,7 @@ class StartupActivity : AppCompatActivity() {
                     }
                 }
 
-                val dlg = showLoadingScreen()
+                val dlg = showLoadingScreen(this)
 
                 CoroutineScope(Dispatchers.Main).launch {
                     helper.getTask().await()
@@ -91,14 +92,5 @@ class StartupActivity : AppCompatActivity() {
     {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun showLoadingScreen(): Dialog
-    {
-        val dlgLoadingScreen = Dialog(this)
-        dlgLoadingScreen.setContentView(R.layout.layout_loading_phone_light)
-        dlgLoadingScreen.show()
-
-        return dlgLoadingScreen
     }
 }

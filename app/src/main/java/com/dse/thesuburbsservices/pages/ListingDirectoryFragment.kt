@@ -20,6 +20,7 @@ import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingAddress
 import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.net.*
+import com.dse.thesuburbsservices.showLoadingScreen
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
@@ -97,6 +98,8 @@ class ListingDirectoryFragment : Fragment() {
     // Occurs when the user selected a listing to view.
     private fun listing_onclick(listing: ListingDirectory)
     {
+        val dlg = showLoadingScreen(this.requireContext())
+
         // Run synchronously.
         CoroutineScope(Dispatchers.Main).launch {
             val imageContent = GET_BYTES(listing.imageUrl)
@@ -112,6 +115,7 @@ class ListingDirectoryFragment : Fragment() {
 
             AppData.listingContent = plainText
         }.invokeOnCompletion {
+            dlg.dismiss()
             AppData.listingName = listing.text
             AppData.listingLocation = Json.decodeFromString<ListingAddress>(
                 listing.listingAddress.substring(

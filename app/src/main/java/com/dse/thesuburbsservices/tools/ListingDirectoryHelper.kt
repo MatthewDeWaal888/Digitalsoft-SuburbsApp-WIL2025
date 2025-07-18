@@ -6,6 +6,8 @@ import android.service.carrier.CarrierMessagingService.ResultCallback
 import android.util.AttributeSet
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.dse.thesuburbsservices.EMPTY_STRING
@@ -23,6 +25,7 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jsoup.*
+import java.util.Locale
 
 
 // This class represents a utility function to get all the listing
@@ -50,6 +53,17 @@ class ListingDirectoryHelper(context: Context) {
 
         // Assign the WebViewClient object, to access the listeners.
         webView?.webViewClient = object : WebViewClient() {
+
+            override fun shouldInterceptRequest(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): WebResourceResponse? {
+                if(request?.url.toString().lowercase().contains(".jpg") ||
+                    request?.url.toString().lowercase().contains(".css"))
+                    return WebResourceResponse("text/html", "utf-8", null)
+
+                return super.shouldInterceptRequest(view, request)
+            }
 
             // Occurs when the WebView object is finished loading the webpage.
             override fun onPageFinished(view: WebView?, url: String?) {
