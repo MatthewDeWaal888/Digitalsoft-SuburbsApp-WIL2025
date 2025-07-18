@@ -18,6 +18,8 @@ import com.dse.thesuburbsservices.pages.*
 // This class represents the MainActivity class.
 class MainActivity : AppCompatActivity() {
 
+    lateinit var popupMenu: PopupMenu
+
     // Occurs when the activity (screen) is created.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,45 @@ class MainActivity : AppCompatActivity() {
             setContentView(binding.root)
 
             // Initialization
+            popupMenu = PopupMenu(this, binding.btnMenu)
+
+            // Add the menu items to the PopupMenu.
+            popupMenu.menu.add("Home")
+            popupMenu.menu.add("Listing Directory")
+            popupMenu.menu.add("What’s Happening")
+            popupMenu.menu.add("Corporate Social Responsibility")
+            popupMenu.menu.add("40 Kids 40 Smiles")
+            popupMenu.menu.add("Zach Gives Back")
+            popupMenu.menu.add("Garth My Mate")
+            popupMenu.menu.add("About Us")
+            popupMenu.menu.add("About Us - Sports")
+            popupMenu.menu.add("About Us - Hospitality")
+            popupMenu.menu.add("About Us - Corporate")
+            popupMenu.menu.add("Staff Login")
+            popupMenu.menu.add("Advertise With Us")
+
+            // Assign an onclick listener to the PopupMenu.
+            popupMenu.setOnMenuItemClickListener {
+                // Case statement.
+                when(it.title)
+                {
+                    "Home" -> btnMenu_item1_onclick()
+                    "Listing Directory" -> btnMenu_item2_onclick()
+                    "What's Happening" -> btnMenu_item3_onclick()
+                    "Corporate Social Responsibility" -> btnMenu_item4_onclick()
+                    "40 Kids 40 Smiles" -> btnMenu_item5_onclick()
+                    "Zach Gives Back" -> btnMenu_item6_onclick()
+                    "Garth My Mate" -> btnMenu_item7_onclick()
+                    "About Us" -> btnMenu_item8_onclick()
+                    "About Us - Sports" -> btnMenu_item9_onclick()
+                    "About Us - Hospitality" -> btnMenu_item10_onclick()
+                    "About Us - Corporate" -> btnMenu_item11_onclick()
+                    "Staff Login" -> btnMenu_item12_onclick()
+                    "Advertise With Us" -> btnMenu_item13_onclick()
+                }
+                true
+            }
+
             tss_fragmentManager = this.supportFragmentManager
             tss_clDisplay = binding.clDisplay
             ScreenNavigate(home_fragment)
@@ -44,131 +85,85 @@ class MainActivity : AppCompatActivity() {
 
             // Occurs when the user clicked the drop-down menu.
             binding.btnMenu.setOnClickListener {
-                btnMenu_OnClick(binding.btnMenu, binding.clDisplay)
+                popupMenu.show()
             }
         }
-    }
-
-    // Occurs when the drop-down menu is clicked.
-    private fun btnMenu_OnClick(view1: View, view2: View)
-    {
-        // Create a PopupMenu object.
-        val popupMenu = PopupMenu(this, view1)
-
-        // Add the menu items to the PopupMenu.
-        popupMenu.menu.add("Home")
-        popupMenu.menu.add("Listing Directory")
-        popupMenu.menu.add("What’s Happening")
-        popupMenu.menu.add("Corporate Social Responsibility")
-        popupMenu.menu.add("40 Kids 40 Smiles")
-        popupMenu.menu.add("Zach Gives Back")
-        popupMenu.menu.add("Garth My Mate")
-        popupMenu.menu.add("About Us")
-        popupMenu.menu.add("About Us - Sports")
-        popupMenu.menu.add("About Us - Hospitality")
-        popupMenu.menu.add("About Us - Corporate")
-        popupMenu.menu.add("Staff Login")
-        popupMenu.menu.add("Advertise With Us")
-
-        // Assign an onclick listener to the PopupMenu.
-        popupMenu.setOnMenuItemClickListener {
-            // Case statement.
-            when(it.title)
-            {
-                "Home" -> btnMenu_item1_onclick(view2)
-                "Listing Directory" -> btnMenu_item2_onclick(view2)
-                "What's Happening" -> btnMenu_item3_onclick(view2)
-                "Corporate Social Responsibility" -> btnMenu_item4_onclick(view2)
-                "40 Kids 40 Smiles" -> btnMenu_item5_onclick(view2)
-                "Zach Gives Back" -> btnMenu_item6_onclick(view2)
-                "Garth My Mate" -> btnMenu_item7_onclick(view2)
-                "About Us" -> btnMenu_item8_onclick(view2)
-                "About Us - Sports" -> btnMenu_item9_onclick(view2)
-                "About Us - Hospitality" -> btnMenu_item10_onclick(view2)
-                "About Us - Corporate" -> btnMenu_item11_onclick(view2)
-                "Staff Login" -> btnMenu_item12_onclick(view2)
-                "Advertise With Us" -> btnMenu_item13_onclick(view2)
-            }
-            true
-        }
-        // Show the Popup Menu to the user.
-        popupMenu.show()
     }
 
     // Occurs when 'Home' is clicked.
-    private fun btnMenu_item1_onclick(view: View)
+    private fun btnMenu_item1_onclick()
     {
         ScreenNavigate(home_fragment)
     }
 
     // Occurs when 'Listing Directory' is clicked.
-    private fun btnMenu_item2_onclick(view: View)
+    private fun btnMenu_item2_onclick()
     {
         ScreenNavigate(listingDirectory_fragment)
     }
 
     // Occurs when 'What's Happening' is clicked.
-    private fun btnMenu_item3_onclick(view: View)
+    private fun btnMenu_item3_onclick()
     {
 
     }
 
     // Occurs when 'Corporate Social Responsibility' is clicked.
-    private fun btnMenu_item4_onclick(view: View)
+    private fun btnMenu_item4_onclick()
     {
 
     }
 
     // Occurs when '40 Kids 40 Smiles' is clicked.
-    private fun btnMenu_item5_onclick(view: View)
+    private fun btnMenu_item5_onclick()
     {
 
     }
 
     // Occurs when 'Zach Gives Back' is clicked.
-    private fun btnMenu_item6_onclick(view: View)
+    private fun btnMenu_item6_onclick()
     {
 
     }
 
     // Occurs when 'Garth My Mate' is clicked.
-    private fun btnMenu_item7_onclick(view: View)
+    private fun btnMenu_item7_onclick()
     {
 
     }
 
     // Occurs when 'About Us' is clicked.
-    private fun btnMenu_item8_onclick(view: View)
+    private fun btnMenu_item8_onclick()
     {
 
     }
 
     // Occurs when 'About Us - Sports' is clicked.
-    private fun btnMenu_item9_onclick(view: View)
+    private fun btnMenu_item9_onclick()
     {
 
     }
 
     // Occurs when 'About Us - Hospitality' is clicked.
-    private fun btnMenu_item10_onclick(view: View)
+    private fun btnMenu_item10_onclick()
     {
 
     }
 
     // Occurs when 'About Us - Corporate' is clicked.
-    private fun btnMenu_item11_onclick(view: View)
+    private fun btnMenu_item11_onclick()
     {
 
     }
 
     // Occurs when 'Staff Login' is clicked.
-    private fun btnMenu_item12_onclick(view: View)
+    private fun btnMenu_item12_onclick()
     {
 
     }
 
     // Occurs when 'Advertise With Us' is clicked.
-    private fun btnMenu_item13_onclick(view: View)
+    private fun btnMenu_item13_onclick()
     {
 
     }
