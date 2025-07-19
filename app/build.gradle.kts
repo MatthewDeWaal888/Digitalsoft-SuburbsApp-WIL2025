@@ -39,10 +39,12 @@ android {
 
 dependencies {
 
-    implementation("com.squareup.okhttp3:okhttp:5.1.0")
     implementation("org.jsoup:jsoup:1.11.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
+
+    implementation("io.ktor:ktor-client-core:3.2.2")
+    implementation("io.ktor:ktor-client-cio:3.2.2")
 
 
     implementation(libs.androidx.core.ktx)

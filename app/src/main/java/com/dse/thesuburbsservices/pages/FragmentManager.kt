@@ -4,9 +4,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 
+// Fragment pages
 val home_fragment = HomeFragment()
 val listingDirectory_fragment = ListingDirectoryFragment()
 val listingFragment = ListingFragment()
+val whatshappening_fragment = WhatsHappeningFragment()
+
+
 lateinit var tss_fragmentManager: FragmentManager
 lateinit var tss_clDisplay: ConstraintLayout
 

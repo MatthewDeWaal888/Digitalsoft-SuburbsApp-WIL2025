@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     "Home" -> btnMenu_item1_onclick()
                     "Listing Directory" -> btnMenu_item2_onclick()
-                    "What's Happening" -> btnMenu_item3_onclick()
+                    "What’s Happening" -> btnMenu_item3_onclick()
                     "Corporate Social Responsibility" -> btnMenu_item4_onclick()
                     "40 Kids 40 Smiles" -> btnMenu_item5_onclick()
                     "Zach Gives Back" -> btnMenu_item6_onclick()
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     // Occurs when 'What's Happening' is clicked.
     private fun btnMenu_item3_onclick()
     {
-
+        ScreenNavigate(whatshappening_fragment)
     }
 
     // Occurs when 'Corporate Social Responsibility' is clicked.

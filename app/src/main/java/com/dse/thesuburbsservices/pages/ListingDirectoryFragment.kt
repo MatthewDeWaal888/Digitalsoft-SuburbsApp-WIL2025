@@ -15,6 +15,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
+import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingAddress
@@ -45,7 +46,7 @@ class ListingDirectoryFragment : Fragment() {
 
         // Obtain the layoutDisplay view.
         layoutDisplay = view.findViewById<LinearLayout>(R.id.layoutDisplay)
-        loadContent(AppData.listings.toTypedArray())
+        loadContent(AppData.listings.toTypedArray().filter { it.imageUrl != EMPTY_STRING}.toTypedArray())
 
         return view
     }

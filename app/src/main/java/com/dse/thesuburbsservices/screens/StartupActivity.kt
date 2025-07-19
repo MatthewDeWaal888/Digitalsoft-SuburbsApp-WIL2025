@@ -13,10 +13,12 @@ import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.data.Article
 import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
 import com.dse.thesuburbsservices.showLoadingScreen
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
+import com.dse.thesuburbsservices.tools.WhatsHappeningHelper
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +27,7 @@ import kotlinx.coroutines.runBlocking
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
+import java.util.concurrent.atomic.AtomicInteger
 
 
 // This class represents the StartupActivity screen.
@@ -56,19 +59,47 @@ class StartupActivity : AppCompatActivity() {
 
             // Occurs when btnStartNow is clicked.
             binding.btnStartNow.setOnClickListener {
+                val jobsCompleted = AtomicInteger(0)
+                val deferred = CompletableDeferred<Int>()
+
                 // Declare and instantiate a ListingDirectoryHelper object.
-                val helper = ListingDirectoryHelper(this)
+                val listingHelper = ListingDirectoryHelper()
                 // Assign  the ValueCallback listener.
-                helper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
+                listingHelper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
                     override fun onReceiveValue(value: Array<ListingDirectory>?) {
                         AppData.listings.addAll(value!!)
+                        jobsCompleted.incrementAndGet()
+
+                        if(jobsCompleted.get() == 2)
+                        {
+                            if(!deferred.isCompleted)
+                            {
+                                deferred.complete(jobsCompleted.get())
+                            }
+                        }
+                    }
+                }
+
+                val articleHelper = WhatsHappeningHelper()
+                articleHelper.onDataReceived = object : ValueCallback<Array<Article>> {
+                    override fun onReceiveValue(value: Array<Article>?) {
+                        AppData.articles.addAll(value!!)
+                        jobsCompleted.incrementAndGet()
+
+                        if(jobsCompleted.get() == 2)
+                        {
+                            if(!deferred.isCompleted)
+                            {
+                                deferred.complete(jobsCompleted.get())
+                            }
+                        }
                     }
                 }
 
                 val dlg = showLoadingScreen(this)
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    helper.getTask().await()
+                    deferred.await()
                 }.invokeOnCompletion {
                     dlg.dismiss()
                     startApp()

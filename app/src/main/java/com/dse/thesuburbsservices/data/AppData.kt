@@ -11,7 +11,8 @@ class AppData {
         var listingContent: String = EMPTY_STRING
         var listingLocation: ListingAddress? = null
 
-        // All listings
+        // Collections
         var listings = ArrayList<ListingDirectory>()
+        var articles = ArrayList<Article>()
     }
 }
