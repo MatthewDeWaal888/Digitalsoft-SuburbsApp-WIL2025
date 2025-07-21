@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.showLoadingScreen
+import org.jsoup.examples.HtmlToPlainText
 
 class ArticleFragment : Fragment() {
 
@@ -24,7 +28,11 @@ class ArticleFragment : Fragment() {
         val tvArticleContent = view.findViewById<TextView>(R.id.tvArticleContent)
         val imgArticle = view.findViewById<ImageView>(R.id.imgArticle)
 
-        
+        tvArticleTitle.text = AppData.selectedArticle?.title
+        tvArticleDate.text = AppData.selectedArticle?.date
+        tvArticleHeading.text = AppData.selectedArticle?.heading
+        tvArticleContent.text = AppData.selectedArticle?.content
+        imgArticle.setImageDrawable(AppData.selectedArticle?.image?.toDrawable(this.resources))
 
         return view
     }

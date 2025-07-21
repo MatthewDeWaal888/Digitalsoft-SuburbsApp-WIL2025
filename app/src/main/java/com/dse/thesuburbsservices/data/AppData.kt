@@ -12,6 +12,7 @@ class AppData {
         var listingLocation: ListingAddress? = null
 
         // Selected Article.
+        var selectedArticle = ArticleData()
 
         // Collections
         var listings = ArrayList<ListingDirectory>()

@@ -1,5 +1,6 @@
 package com.dse.thesuburbsservices.pages
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -7,14 +8,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.ValueCallback
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
+import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
 import com.dse.thesuburbsservices.net.GET_BYTES
+import com.dse.thesuburbsservices.tools.ArticleHelper
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,7 +60,7 @@ class WhatsHappeningFragment : Fragment() {
                 tvArticleDescription.text = i.description
 
                 btnReadMore.setOnClickListener {
-                    // Code to read the article
+                    loadArticle(i.readMoreLink)
                 }
 
                 var bitmap: Bitmap? = null
@@ -75,6 +80,37 @@ class WhatsHappeningFragment : Fragment() {
 
                     this.layoutArticles.addView(layoutArticle)
                 }
+            }
+        }
+    }
+
+    private fun loadArticle(request_url: String)
+    {
+        if(request_url != EMPTY_STRING)
+        {
+            val deferred = CompletableDeferred<Int>()
+            val articleHelper = ArticleHelper(request_url)
+            articleHelper.onDataReceived = object : ValueCallback<ArticleHelper> {
+                override fun onReceiveValue(value: ArticleHelper?) {
+                    AppData.selectedArticle.title = value?.getArticleTitle()!!
+                    AppData.selectedArticle.date = value.getArticleDate()
+                    AppData.selectedArticle.heading = value.getArticleHeading()
+                    AppData.selectedArticle.content = value.getArticleContent()
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val bytes = GET_BYTES(value.getArticleImageUrl())
+                        val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
+                        AppData.selectedArticle.image = bitmap
+                    }.invokeOnCompletion {
+                        deferred.complete(1)
+                    }
+                }
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                deferred.await()
+            }.invokeOnCompletion {
+                ScreenNavigate(article_fragment)
             }
         }
     }

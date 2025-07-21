@@ -9,6 +9,7 @@ val home_fragment = HomeFragment()
 val listingDirectory_fragment = ListingDirectoryFragment()
 val listingFragment = ListingFragment()
 val whatshappening_fragment = WhatsHappeningFragment()
+val article_fragment = ArticleFragment()
 
 
 lateinit var tss_fragmentManager: FragmentManager
