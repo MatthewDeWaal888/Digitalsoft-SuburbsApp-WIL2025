@@ -6,4 +6,5 @@
     <color name="tss_light_background1">#B6BED9</color>
     <color name="tss_light_background2">#4B4E59</color>
     <color name="tss_image_bg_border">#030E32</color>
+    <color name="tss_menu_section_1">#0e45fb</color>
 </resources>
