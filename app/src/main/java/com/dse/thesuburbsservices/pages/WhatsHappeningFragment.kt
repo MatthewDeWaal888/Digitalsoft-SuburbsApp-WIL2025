@@ -98,9 +98,13 @@ class WhatsHappeningFragment : Fragment() {
                     AppData.selectedArticle.content = value.getArticleContent()
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val bytes = GET_BYTES(value.getArticleImageUrl())
-                        val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
-                        AppData.selectedArticle.image = bitmap
+                        val imageUrl = value.getArticleImageUrl()
+
+                        if(imageUrl != EMPTY_STRING) {
+                            val bytes = GET_BYTES(imageUrl)
+                            val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
+                            AppData.selectedArticle.image = bitmap
+                        }
                     }.invokeOnCompletion {
                         deferred.complete(1)
                     }

@@ -2,6 +2,10 @@ package com.dse.thesuburbsservices.tools
 
 import android.webkit.ValueCallback
 import com.dse.thesuburbsservices.EMPTY_STRING
+import com.dse.thesuburbsservices.net.GET
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 
 class ArticleHelper(articleLink: String) {
@@ -15,18 +19,32 @@ class ArticleHelper(articleLink: String) {
     var onDataReceived: ValueCallback<ArticleHelper>? = null
 
     init {
-        val doc = Jsoup.parse(articleLink)
+        CoroutineScope(Dispatchers.IO).launch {
+            val html = GET(articleLink)
+            val doc = Jsoup.parse(html)
 
-        title = doc.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
-        date = doc.getElementsByClass("elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date")[0].child(0).text()
-        heading = doc.getElementsByClass("wp-block-heading has-text-align-left")[0].text()
+            title =
+                doc.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
+            date =
+                doc.getElementsByClass("elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date")[0].child(
+                    0
+                ).text()
+            val _heading = doc.getElementsByClass("wp-block-heading has-text-align-left")
 
-        val elem = doc.getElementsByClass("elementor-widget-container")[0]
-        elem.child(0).remove()
+            if(_heading.size>0)
+                heading = _heading[0].text()
 
-        content = elem.text()
-        imageUrl = doc.getElementsByClass("image-wrapper")[0].child(0).attributes()["data-src"]
-        onDataReceived?.onReceiveValue(this)
+            val elem = doc.getElementsByClass("elementor-widget-container")[8]
+            elem.children()[0].remove()
+
+            content = elem.text()
+            val _imageUrl = doc.getElementsByClass("image-wrapper")
+
+            if(_imageUrl.size>0)
+                imageUrl = _imageUrl[0].child(0).attributes()["data-src"]
+        }.invokeOnCompletion {
+            onDataReceived?.onReceiveValue(this)
+        }
     }
 
     fun getArticleTitle(): String

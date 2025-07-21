@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isVisible
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.showLoadingScreen
@@ -32,7 +33,13 @@ class ArticleFragment : Fragment() {
         tvArticleDate.text = AppData.selectedArticle?.date
         tvArticleHeading.text = AppData.selectedArticle?.heading
         tvArticleContent.text = AppData.selectedArticle?.content
-        imgArticle.setImageDrawable(AppData.selectedArticle?.image?.toDrawable(this.resources))
+
+        if(AppData?.selectedArticle?.image != null)
+            imgArticle.setImageDrawable(AppData.selectedArticle?.image?.toDrawable(this.resources))
+        else
+        {
+            imgArticle.isVisible = false
+        }
 
         return view
     }
