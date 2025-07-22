@@ -14,6 +14,9 @@ class AppData {
         // Selected Article.
         var selectedArticle = ArticleData()
 
+        // 40Kids40Smiles
+        var _40kids40smiles: _40Kids40Smiles? = null
+
         // Collections
         var listings = ArrayList<ListingDirectory>()
         var articles = ArrayList<Article>()

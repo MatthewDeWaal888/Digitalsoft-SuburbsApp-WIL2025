@@ -15,10 +15,12 @@ import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
 import com.dse.thesuburbsservices.data.ListingDirectory
+import com.dse.thesuburbsservices.data._40Kids40Smiles
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
 import com.dse.thesuburbsservices.showLoadingScreen
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import com.dse.thesuburbsservices.tools.WhatsHappeningHelper
+import com.dse.thesuburbsservices.tools._40Kids40SmilesHelper
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,7 +72,7 @@ class StartupActivity : AppCompatActivity() {
                         AppData.listings.addAll(value!!)
                         jobsCompleted.incrementAndGet()
 
-                        if(jobsCompleted.get() == 2)
+                        if(jobsCompleted.get() == 3)
                         {
                             if(!deferred.isCompleted)
                             {
@@ -80,13 +82,31 @@ class StartupActivity : AppCompatActivity() {
                     }
                 }
 
+                // Declare and instantiate an ArticleHelper object.
                 val articleHelper = WhatsHappeningHelper()
                 articleHelper.onDataReceived = object : ValueCallback<Array<Article>> {
                     override fun onReceiveValue(value: Array<Article>?) {
                         AppData.articles.addAll(value!!)
                         jobsCompleted.incrementAndGet()
 
-                        if(jobsCompleted.get() == 2)
+                        if(jobsCompleted.get() == 3)
+                        {
+                            if(!deferred.isCompleted)
+                            {
+                                deferred.complete(jobsCompleted.get())
+                            }
+                        }
+                    }
+                }
+
+                // Declare and instantiate a _40Kids40SmilesHelper object
+                val _40kids40smilesHelper = _40Kids40SmilesHelper()
+                _40kids40smilesHelper.onDataReceived = object : ValueCallback<_40Kids40Smiles> {
+                    override fun onReceiveValue(value: _40Kids40Smiles?) {
+                        AppData._40kids40smiles = value
+                        jobsCompleted.incrementAndGet()
+
+                        if(jobsCompleted.get() == 3)
                         {
                             if(!deferred.isCompleted)
                             {

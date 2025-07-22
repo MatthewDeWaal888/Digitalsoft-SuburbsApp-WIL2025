@@ -2,6 +2,7 @@ package com.dse.thesuburbsservices.tools
 
 import android.webkit.ValueCallback
 import com.dse.thesuburbsservices.EMPTY_STRING
+import com.dse.thesuburbsservices.data._40Kids40Smiles
 import com.dse.thesuburbsservices.net.GET
 import com.dse.thesuburbsservices.net.TSS_ADDRESS
 import com.dse.thesuburbsservices.net.combinePath
@@ -15,14 +16,10 @@ import org.jsoup.examples.HtmlToPlainText
 class _40Kids40SmilesHelper {
 
     // Attributes/Data fields
-    private var heading: String = EMPTY_STRING
-    private var content: String = EMPTY_STRING
-    private var objectives: String = EMPTY_STRING
-    private var images: Array<String>? = null
-    private var imageCaptions: Array<String>? = null
+    private var obj = _40Kids40Smiles()
 
     // Event for data received.
-    var onDataReceived: ValueCallback<_40Kids40SmilesHelper>? = null
+    var onDataReceived: ValueCallback<_40Kids40Smiles>? = null
 
     init {
         val url = combinePath(TSS_ADDRESS, "corporate-social-responsibility/40-kids-40-smiles")
@@ -34,17 +31,14 @@ class _40Kids40SmilesHelper {
             // Create a Jsoup document from the html code.
             val doc = Jsoup.parse(html)
 
-            // Get the root node.
-            val root = doc.getElementsByClass("e-con-inner")[0]
-
-            heading = root.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
-            content = root.getElementsByClass("elementor-widget-container")[14].text()
+            obj.heading = doc.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
+            obj.content = doc.getElementsByClass("elementor-widget-container")[10].text()
 
             val converter = HtmlToPlainText()
-            objectives = converter.getPlainText(root.getElementsByClass("elementor-element elementor-element-945677c e-con-full e-flex e-con e-child")[0])
+            obj.objectives = doc.getElementsByClass("elementor-widget-container")[12].text()
 
-            val _images = root.getElementsByClass("elementor-image-box-img")
-            val _imageCaption = root.getElementsByClass("elementor-image-box-title")
+            val _images = doc.getElementsByClass("elementor-image-box-wrapper")
+            val _imageCaption = doc.getElementsByClass("elementor-image-box-title")
 
             val image_src_list = ArrayList<String>()
             val image_title_list = ArrayList<String>()
@@ -61,35 +55,15 @@ class _40Kids40SmilesHelper {
                 image_title_list.add(title)
             }
 
-            images = image_src_list.toTypedArray()
-            imageCaptions = image_title_list.toTypedArray()
+            obj.images = image_src_list.toTypedArray()
+            obj.imageCaptions = image_title_list.toTypedArray()
         }.invokeOnCompletion {
-            onDataReceived?.onReceiveValue(this)
+            onDataReceived?.onReceiveValue(obj)
         }
     }
 
-    fun getHeading(): String
+    fun getData(): _40Kids40Smiles
     {
-        return heading
-    }
-
-    fun getContent(): String
-    {
-        return content
-    }
-
-    fun getObjectives(): String
-    {
-        return objectives
-    }
-
-    fun getImages(): Array<String>?
-    {
-        return images
-    }
-
-    fun getCaptions(): Array<String>?
-    {
-        return imageCaptions
+        return obj
     }
 }
