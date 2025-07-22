@@ -19,16 +19,13 @@ class ArticleHelper(articleLink: String) {
     var onDataReceived: ValueCallback<ArticleHelper>? = null
 
     init {
+        // Asynchronous I/O operation
         CoroutineScope(Dispatchers.IO).launch {
             val html = GET(articleLink)
             val doc = Jsoup.parse(html)
 
-            title =
-                doc.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
-            date =
-                doc.getElementsByClass("elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date")[0].child(
-                    0
-                ).text()
+            title = doc.getElementsByClass("elementor-heading-title elementor-size-default")[0].text()
+            date = doc.getElementsByClass("elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date")[0].child(0).text()
             val _heading = doc.getElementsByClass("wp-block-heading has-text-align-left")
 
             if(_heading.size>0)

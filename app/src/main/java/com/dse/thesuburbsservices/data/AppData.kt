@@ -17,6 +17,12 @@ class AppData {
         // 40Kids40Smiles
         var _40kids40smiles: _40Kids40Smiles? = null
 
+        // ZachGivesBack
+        var zachGivesBack: ZachGivesBack? = null
+
+        // GarthMyMate
+        var garthMyMate: GarthMyMate? = null
+
         // Collections
         var listings = ArrayList<ListingDirectory>()
         var articles = ArrayList<Article>()

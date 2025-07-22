@@ -14,12 +14,16 @@ import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
+import com.dse.thesuburbsservices.data.GarthMyMate
 import com.dse.thesuburbsservices.data.ListingDirectory
+import com.dse.thesuburbsservices.data.ZachGivesBack
 import com.dse.thesuburbsservices.data._40Kids40Smiles
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
 import com.dse.thesuburbsservices.showLoadingScreen
+import com.dse.thesuburbsservices.tools.GarthMyMateHelper
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import com.dse.thesuburbsservices.tools.WhatsHappeningHelper
+import com.dse.thesuburbsservices.tools.ZachGivesBackHelper
 import com.dse.thesuburbsservices.tools._40Kids40SmilesHelper
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -62,6 +66,7 @@ class StartupActivity : AppCompatActivity() {
             // Occurs when btnStartNow is clicked.
             binding.btnStartNow.setOnClickListener {
                 val jobsCompleted = AtomicInteger(0)
+                val numberOfJobs = 5
                 val deferred = CompletableDeferred<Int>()
 
                 // Declare and instantiate a ListingDirectoryHelper object.
@@ -72,7 +77,7 @@ class StartupActivity : AppCompatActivity() {
                         AppData.listings.addAll(value!!)
                         jobsCompleted.incrementAndGet()
 
-                        if(jobsCompleted.get() == 3)
+                        if(jobsCompleted.get() == numberOfJobs)
                         {
                             if(!deferred.isCompleted)
                             {
@@ -89,7 +94,7 @@ class StartupActivity : AppCompatActivity() {
                         AppData.articles.addAll(value!!)
                         jobsCompleted.incrementAndGet()
 
-                        if(jobsCompleted.get() == 3)
+                        if(jobsCompleted.get() == numberOfJobs)
                         {
                             if(!deferred.isCompleted)
                             {
@@ -106,7 +111,41 @@ class StartupActivity : AppCompatActivity() {
                         AppData._40kids40smiles = value
                         jobsCompleted.incrementAndGet()
 
-                        if(jobsCompleted.get() == 3)
+                        if(jobsCompleted.get() == numberOfJobs)
+                        {
+                            if(!deferred.isCompleted)
+                            {
+                                deferred.complete(jobsCompleted.get())
+                            }
+                        }
+                    }
+                }
+
+                // Declare and instantiate a ZachGivesBackHelper object
+                val zachGivesBackHelper = ZachGivesBackHelper()
+                zachGivesBackHelper.onDataReceived = object : ValueCallback<ZachGivesBack> {
+                    override fun onReceiveValue(value: ZachGivesBack?) {
+                        AppData.zachGivesBack = value
+                        jobsCompleted.incrementAndGet()
+
+                        if(jobsCompleted.get() == numberOfJobs)
+                        {
+                            if(!deferred.isCompleted)
+                            {
+                                deferred.complete(jobsCompleted.get())
+                            }
+                        }
+                    }
+                }
+
+                // Declare and instantiate a GarthMyMateHelper object
+                val garthMyMateHelper = GarthMyMateHelper()
+                garthMyMateHelper.onDataReceived = object : ValueCallback<GarthMyMate> {
+                    override fun onReceiveValue(value: GarthMyMate?) {
+                        AppData.garthMyMate = value
+                        jobsCompleted.incrementAndGet()
+
+                        if(jobsCompleted.get() == numberOfJobs)
                         {
                             if(!deferred.isCompleted)
                             {
