@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.TheSuburbsServices" parent="Base.Theme.TheSuburbsServices" />
+    <style name="Theme.TheSuburbsServices" parent="Base.Theme.TheSuburbsServices">
+        <item name="android:itemBackground">@color/tss_popup_menu</item>
+    </style>
 </resources>

@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheSuburbsServices">
         <activity
-            android:name=".screens.ListingActivity"
-            android:exported="false" />
-        <activity
             android:name=".screens.StartupActivity"
             android:exported="true">
             <intent-filter>

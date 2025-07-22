@@ -1,7 +1,6 @@
 package com.dse.thesuburbsservices.screens
 
 import android.os.Bundle
-import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,13 @@ import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.databinding.ActivityMainPhoneLightBinding
-import com.dse.thesuburbsservices.pages.ScreenNavigate
-import com.dse.thesuburbsservices.pages.home_fragment
-import com.dse.thesuburbsservices.pages.*
+import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.csr_fragment
+import com.dse.thesuburbsservices.home_fragment
+import com.dse.thesuburbsservices.listingDirectory_fragment
+import com.dse.thesuburbsservices.tss_clDisplay
+import com.dse.thesuburbsservices.tss_fragmentManager
+import com.dse.thesuburbsservices.*
 
 // This class represents the MainActivity class.
 class MainActivity : AppCompatActivity() {
@@ -111,60 +114,60 @@ class MainActivity : AppCompatActivity() {
     // Occurs when 'Corporate Social Responsibility' is clicked.
     private fun btnMenu_item4_onclick()
     {
-
+        ScreenNavigate(csr_fragment)
     }
 
     // Occurs when '40 Kids 40 Smiles' is clicked.
     private fun btnMenu_item5_onclick()
     {
-
+        ScreenNavigate(_40kids40smiles_fragment)
     }
 
     // Occurs when 'Zach Gives Back' is clicked.
     private fun btnMenu_item6_onclick()
     {
-
+        ScreenNavigate(zachGivesBack_fragment)
     }
 
     // Occurs when 'Garth My Mate' is clicked.
     private fun btnMenu_item7_onclick()
     {
-
+        ScreenNavigate(garthMyMate_fragment)
     }
 
     // Occurs when 'About Us' is clicked.
     private fun btnMenu_item8_onclick()
     {
-
+        ScreenNavigate(aboutUs_fragment)
     }
 
     // Occurs when 'About Us - Sports' is clicked.
     private fun btnMenu_item9_onclick()
     {
-
+        ScreenNavigate(aboutUsSports_fragment)
     }
 
     // Occurs when 'About Us - Hospitality' is clicked.
     private fun btnMenu_item10_onclick()
     {
-
+        ScreenNavigate(aboutUsHospitality_fragment)
     }
 
     // Occurs when 'About Us - Corporate' is clicked.
     private fun btnMenu_item11_onclick()
     {
-
+        ScreenNavigate(aboutUsCorporate_fragment)
     }
 
     // Occurs when 'Staff Login' is clicked.
     private fun btnMenu_item12_onclick()
     {
-
+        ScreenNavigate(staffLogin_fragment)
     }
 
     // Occurs when 'Advertise With Us' is clicked.
     private fun btnMenu_item13_onclick()
     {
-
+        ScreenNavigate(advertiseWithUs_fragment)
     }
 }

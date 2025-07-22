@@ -1,6 +1,5 @@
 package com.dse.thesuburbsservices.pages
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -8,27 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.ValueCallback
-import android.webkit.WebView
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingAddress
 import com.dse.thesuburbsservices.data.ListingDirectory
+import com.dse.thesuburbsservices.listing_fragment
 import com.dse.thesuburbsservices.net.*
 import com.dse.thesuburbsservices.showLoadingScreen
-import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import org.jsoup.*
 import org.jsoup.examples.HtmlToPlainText
-import org.jsoup.parser.*
-import kotlin.io.encoding.Base64
 
 // This class represents the Listing-Directory fragment.
 class ListingDirectoryFragment : Fragment() {
@@ -126,7 +121,7 @@ class ListingDirectoryFragment : Fragment() {
             )
 
             // Navigate to the listing fragment.
-            ScreenNavigate(listingFragment)
+            ScreenNavigate(listing_fragment)
         }
     }
 }

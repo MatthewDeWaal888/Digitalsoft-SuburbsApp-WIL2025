@@ -1,7 +1,6 @@
 package com.dse.thesuburbsservices.pages
 
 import android.annotation.SuppressLint
-import android.location.Location
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
 import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.listingDirectory_fragment
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.*

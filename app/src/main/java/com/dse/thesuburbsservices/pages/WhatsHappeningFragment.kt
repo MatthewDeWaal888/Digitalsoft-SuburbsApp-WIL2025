@@ -1,6 +1,5 @@
 package com.dse.thesuburbsservices.pages
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -15,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.article_fragment
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
 import com.dse.thesuburbsservices.net.GET_BYTES
@@ -34,7 +35,7 @@ class WhatsHappeningFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_whats_happening, container, false)
+        val view = inflater.inflate(R.layout.fragment_whats_happening_phone_light, container, false)
 
         layoutArticles = view.findViewById<LinearLayout>(R.id.layoutArticles)
         loadContent(AppData.articles.toTypedArray())
