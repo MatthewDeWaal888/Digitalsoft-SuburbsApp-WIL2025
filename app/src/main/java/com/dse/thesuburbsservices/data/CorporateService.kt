@@ -2,9 +2,8 @@ package com.dse.thesuburbsservices.data
 
 import com.dse.thesuburbsservices.EMPTY_STRING
 
-// ZachGivesBack
-data class ZachGivesBack(
-    var title: String = EMPTY_STRING,
-    var imageUrl: String = EMPTY_STRING,
+// CorporateService
+data class CorporateService(
+    var heading: String = EMPTY_STRING,
     var content: String = EMPTY_STRING
 )

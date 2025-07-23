@@ -12,6 +12,7 @@ import com.dse.thesuburbsservices.APP_THEME_DARK
 import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.appTheme
+import com.dse.thesuburbsservices.data.*
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
 import com.dse.thesuburbsservices.data.GarthMyMate
@@ -20,11 +21,12 @@ import com.dse.thesuburbsservices.data.ZachGivesBack
 import com.dse.thesuburbsservices.data._40Kids40Smiles
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
 import com.dse.thesuburbsservices.showLoadingScreen
+import com.dse.thesuburbsservices.tools.AboutUsHelper
 import com.dse.thesuburbsservices.tools.GarthMyMateHelper
 import com.dse.thesuburbsservices.tools.ListingDirectoryHelper
 import com.dse.thesuburbsservices.tools.WhatsHappeningHelper
 import com.dse.thesuburbsservices.tools.ZachGivesBackHelper
-import com.dse.thesuburbsservices.tools._40Kids40SmilesHelper
+import com.dse.thesuburbsservices.tools.*
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,94 +68,9 @@ class StartupActivity : AppCompatActivity() {
             // Occurs when btnStartNow is clicked.
             binding.btnStartNow.setOnClickListener {
                 val jobsCompleted = AtomicInteger(0)
-                val numberOfJobs = 5
+                val numberOfJobs = 9
                 val deferred = CompletableDeferred<Int>()
-
-                // Declare and instantiate a ListingDirectoryHelper object.
-                val listingHelper = ListingDirectoryHelper()
-                // Assign  the ValueCallback listener.
-                listingHelper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
-                    override fun onReceiveValue(value: Array<ListingDirectory>?) {
-                        AppData.listings.addAll(value!!)
-                        jobsCompleted.incrementAndGet()
-
-                        if(jobsCompleted.get() == numberOfJobs)
-                        {
-                            if(!deferred.isCompleted)
-                            {
-                                deferred.complete(jobsCompleted.get())
-                            }
-                        }
-                    }
-                }
-
-                // Declare and instantiate an ArticleHelper object.
-                val articleHelper = WhatsHappeningHelper()
-                articleHelper.onDataReceived = object : ValueCallback<Array<Article>> {
-                    override fun onReceiveValue(value: Array<Article>?) {
-                        AppData.articles.addAll(value!!)
-                        jobsCompleted.incrementAndGet()
-
-                        if(jobsCompleted.get() == numberOfJobs)
-                        {
-                            if(!deferred.isCompleted)
-                            {
-                                deferred.complete(jobsCompleted.get())
-                            }
-                        }
-                    }
-                }
-
-                // Declare and instantiate a _40Kids40SmilesHelper object
-                val _40kids40smilesHelper = _40Kids40SmilesHelper()
-                _40kids40smilesHelper.onDataReceived = object : ValueCallback<_40Kids40Smiles> {
-                    override fun onReceiveValue(value: _40Kids40Smiles?) {
-                        AppData._40kids40smiles = value
-                        jobsCompleted.incrementAndGet()
-
-                        if(jobsCompleted.get() == numberOfJobs)
-                        {
-                            if(!deferred.isCompleted)
-                            {
-                                deferred.complete(jobsCompleted.get())
-                            }
-                        }
-                    }
-                }
-
-                // Declare and instantiate a ZachGivesBackHelper object
-                val zachGivesBackHelper = ZachGivesBackHelper()
-                zachGivesBackHelper.onDataReceived = object : ValueCallback<ZachGivesBack> {
-                    override fun onReceiveValue(value: ZachGivesBack?) {
-                        AppData.zachGivesBack = value
-                        jobsCompleted.incrementAndGet()
-
-                        if(jobsCompleted.get() == numberOfJobs)
-                        {
-                            if(!deferred.isCompleted)
-                            {
-                                deferred.complete(jobsCompleted.get())
-                            }
-                        }
-                    }
-                }
-
-                // Declare and instantiate a GarthMyMateHelper object
-                val garthMyMateHelper = GarthMyMateHelper()
-                garthMyMateHelper.onDataReceived = object : ValueCallback<GarthMyMate> {
-                    override fun onReceiveValue(value: GarthMyMate?) {
-                        AppData.garthMyMate = value
-                        jobsCompleted.incrementAndGet()
-
-                        if(jobsCompleted.get() == numberOfJobs)
-                        {
-                            if(!deferred.isCompleted)
-                            {
-                                deferred.complete(jobsCompleted.get())
-                            }
-                        }
-                    }
-                }
+                getContent(deferred, jobsCompleted, numberOfJobs)
 
                 val dlg = showLoadingScreen(this)
 
@@ -163,7 +80,6 @@ class StartupActivity : AppCompatActivity() {
                     dlg.dismiss()
                     startApp()
                 }
-
             }
 
             // Occurs when btnExit is clicked.
@@ -175,6 +91,165 @@ class StartupActivity : AppCompatActivity() {
         else if(appTheme == APP_THEME_DARK)
         {
 
+        }
+    }
+
+    private fun getContent(deferred: CompletableDeferred<Int>, jobsCompleted: AtomicInteger, numberOfJobs: Int)
+    {
+        // Declare and instantiate a ListingDirectoryHelper object.
+        val listingHelper = ListingDirectoryHelper()
+        // Assign  the ValueCallback listener.
+        listingHelper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
+            override fun onReceiveValue(value: Array<ListingDirectory>?) {
+                AppData.listings.addAll(value!!)
+                jobsCompleted.incrementAndGet()
+
+                if(jobsCompleted.get() == numberOfJobs)
+                {
+                    if(!deferred.isCompleted)
+                    {
+                        deferred.complete(jobsCompleted.get())
+                    }
+                }
+            }
+        }
+
+        // Declare and instantiate an ArticleHelper object.
+        val articleHelper = WhatsHappeningHelper()
+        articleHelper.onDataReceived = object : ValueCallback<Array<Article>> {
+            override fun onReceiveValue(value: Array<Article>?) {
+                AppData.articles.addAll(value!!)
+                jobsCompleted.incrementAndGet()
+
+                if(jobsCompleted.get() == numberOfJobs)
+                {
+                    if(!deferred.isCompleted)
+                    {
+                        deferred.complete(jobsCompleted.get())
+                    }
+                }
+            }
+        }
+
+        // Declare and instantiate a _40Kids40SmilesHelper object
+        val _40kids40smilesHelper = _40Kids40SmilesHelper()
+        _40kids40smilesHelper.onDataReceived = object : ValueCallback<_40Kids40Smiles> {
+            override fun onReceiveValue(value: _40Kids40Smiles?) {
+                AppData._40kids40smiles = value
+                jobsCompleted.incrementAndGet()
+
+                if(jobsCompleted.get() == numberOfJobs)
+                {
+                    if(!deferred.isCompleted)
+                    {
+                        deferred.complete(jobsCompleted.get())
+                    }
+                }
+            }
+        }
+
+        // Declare and instantiate a ZachGivesBackHelper object
+        val zachGivesBackHelper = ZachGivesBackHelper()
+        zachGivesBackHelper.onDataReceived = object : ValueCallback<ZachGivesBack> {
+            override fun onReceiveValue(value: ZachGivesBack?) {
+                AppData.zachGivesBack = value
+                jobsCompleted.incrementAndGet()
+
+                if(jobsCompleted.get() == numberOfJobs)
+                {
+                    if(!deferred.isCompleted)
+                    {
+                        deferred.complete(jobsCompleted.get())
+                    }
+                }
+            }
+        }
+
+        // Declare and instantiate a GarthMyMateHelper object
+        val garthMyMateHelper = GarthMyMateHelper()
+        garthMyMateHelper.onDataReceived = object : ValueCallback<GarthMyMate> {
+            override fun onReceiveValue(value: GarthMyMate?) {
+                AppData.garthMyMate = value
+                jobsCompleted.incrementAndGet()
+
+                if(jobsCompleted.get() == numberOfJobs)
+                {
+                    if(!deferred.isCompleted)
+                    {
+                        deferred.complete(jobsCompleted.get())
+                    }
+                }
+            }
+        }
+
+        // Declare and instantiate an AboutUsHelper object
+        val aboutUsHelper = AboutUsHelper()
+        aboutUsHelper.onDataReceived = object : ValueCallback<AboutUs> {
+            override fun onReceiveValue(value: AboutUs?) {
+                AppData.aboutUs = value
+                val i = jobsCompleted.incrementAndGet()
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
+        }
+
+        // Declare and instantiate an SportsServiceHelper object.
+        val sportsServiceHelper = SportsServiceHelper()
+        sportsServiceHelper.onDataReceived = object : ValueCallback<SportsService> {
+            override fun onReceiveValue(value: SportsService?) {
+                AppData.sportsService = value
+                val i = jobsCompleted.incrementAndGet()
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
+        }
+
+        // Declare and instantiate a HospitalityServiceHelper object.
+        val hospitalityServiceHelper = HospitalityServiceHelper()
+        hospitalityServiceHelper.onDataReceived = object : ValueCallback<HospitalityService> {
+            override fun onReceiveValue(value: HospitalityService?) {
+                AppData.hospitalityService = value
+                val i = jobsCompleted.incrementAndGet()
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
+        }
+
+        // Declare and instantiate a CorporateServiceHelper object.
+        val corporateServiceHelper = CorporateServiceHelper()
+        corporateServiceHelper.onDataReceived = object : ValueCallback<CorporateService> {
+            override fun onReceiveValue(value: CorporateService?) {
+                AppData.corporateService = value
+                val i = jobsCompleted.incrementAndGet()
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
+        }
+
+        // Declare and instantiate an AdvertiseWithUsHelper object.
+        val advertiseWithUsHelper = AdvertiseWithUsHelper()
+        advertiseWithUsHelper.onDataReceived = object : ValueCallback<AdvertiseWithUs> {
+            override fun onReceiveValue(value: AdvertiseWithUs?) {
+                AppData.advertiseWithUs = value
+                val i = jobsCompleted.incrementAndGet()
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
         }
     }
 

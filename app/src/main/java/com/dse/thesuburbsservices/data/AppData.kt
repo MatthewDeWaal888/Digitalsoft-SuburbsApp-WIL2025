@@ -23,6 +23,21 @@ class AppData {
         // GarthMyMate
         var garthMyMate: GarthMyMate? = null
 
+        // AboutUs
+        var aboutUs: AboutUs? = null
+
+        // SportsService
+        var sportsService: SportsService? = null
+
+        // HospitalityService
+        var hospitalityService: HospitalityService? = null
+
+        // CorporateService
+        var corporateService: CorporateService? = null
+
+        // AdvertiseWithUs
+        var advertiseWithUs: AdvertiseWithUs? = null
+
         // Collections
         var listings = ArrayList<ListingDirectory>()
         var articles = ArrayList<Article>()

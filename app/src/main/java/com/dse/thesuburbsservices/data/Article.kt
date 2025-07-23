@@ -3,6 +3,7 @@ package com.dse.thesuburbsservices.data
 import com.dse.thesuburbsservices.EMPTY_STRING
 import kotlinx.serialization.Serializable
 
+// Article
 @Serializable
 data class Article(
     var imageUrl: String = EMPTY_STRING,

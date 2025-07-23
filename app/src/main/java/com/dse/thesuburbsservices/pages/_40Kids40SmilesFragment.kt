@@ -27,24 +27,34 @@ class _40Kids40SmilesFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment__40_kids40_smiles_phone_light, container, false)
 
+        // Obtain the views from the root view.
         val layoutView = view.findViewById<LinearLayout>(R.id.layoutView)
         val tvContent = view.findViewById<TextView>(R.id.tvContent)
 
+        // Construct a string for the tvContent view.
         val displayText = "${AppData._40kids40smiles?.heading}\n\n${AppData._40kids40smiles?.content}\n\n${AppData._40kids40smiles?.objectives}"
+        // Display the string to the user.
         tvContent.text = displayText
 
+        // Iteration
         for(i in 0..AppData._40kids40smiles?.images?.size!!-1) {
+            // Asynchronous Main Scope
             CoroutineScope(Dispatchers.Main).launch {
                 val index = i
 
+                // Declarations
                 val layoutView2 = inflater.inflate(R.layout.layout_40kids_40smiles, null)
                 val image = layoutView2.findViewById<ImageView>(R.id.imageView)
                 val tvImageTitle = layoutView2.findViewById<TextView>(R.id.tvImageTitle)
                 var bitmap: Bitmap? = null
 
+                // Obtain the bytes from the requested url.
                 val image_bytes = GET_BYTES(AppData?._40kids40smiles?.images!![i])
+                // Create a bitmap from the bytes.
                 bitmap = BitmapFactory.decodeStream(image_bytes.inputStream())
+                // Assign the bitmap to the image view.
                 image.setImageDrawable(bitmap.toDrawable(resources))
+                // Set the image title.
                 tvImageTitle.text = AppData._40kids40smiles?.imageCaptions!![index]
 
                 layoutView.addView(layoutView2)
