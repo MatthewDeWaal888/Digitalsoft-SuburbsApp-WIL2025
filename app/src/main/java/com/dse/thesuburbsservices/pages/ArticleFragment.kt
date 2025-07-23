@@ -34,8 +34,8 @@ class ArticleFragment : Fragment() {
         tvArticleHeading.text = AppData.selectedArticle?.heading
         tvArticleContent.text = AppData.selectedArticle?.content
 
-        if(AppData?.selectedArticle?.image != null)
-            imgArticle.setImageDrawable(AppData.selectedArticle?.image?.toDrawable(this.resources))
+        if(AppData.selectedArticle?.image != null)
+            imgArticle.setImageDrawable(AppData.selectedArticle.image?.toDrawable(this.resources))
         else
         {
             imgArticle.isVisible = false

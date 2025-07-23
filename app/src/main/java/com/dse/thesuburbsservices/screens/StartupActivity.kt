@@ -20,6 +20,7 @@ import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.data.ZachGivesBack
 import com.dse.thesuburbsservices.data._40Kids40Smiles
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
+import com.dse.thesuburbsservices.setPercentage
 import com.dse.thesuburbsservices.showLoadingScreen
 import com.dse.thesuburbsservices.tools.AboutUsHelper
 import com.dse.thesuburbsservices.tools.GarthMyMateHelper
@@ -70,9 +71,9 @@ class StartupActivity : AppCompatActivity() {
                 val jobsCompleted = AtomicInteger(0)
                 val numberOfJobs = 9
                 val deferred = CompletableDeferred<Int>()
-                getContent(deferred, jobsCompleted, numberOfJobs)
 
                 val dlg = showLoadingScreen(this)
+                getContent(deferred, jobsCompleted, numberOfJobs, dlg)
 
                 CoroutineScope(Dispatchers.Main).launch {
                     deferred.await()
@@ -94,7 +95,7 @@ class StartupActivity : AppCompatActivity() {
         }
     }
 
-    private fun getContent(deferred: CompletableDeferred<Int>, jobsCompleted: AtomicInteger, numberOfJobs: Int)
+    private fun getContent(deferred: CompletableDeferred<Int>, jobsCompleted: AtomicInteger, numberOfJobs: Int, dlg: Dialog)
     {
         // Declare and instantiate a ListingDirectoryHelper object.
         val listingHelper = ListingDirectoryHelper()
@@ -102,14 +103,16 @@ class StartupActivity : AppCompatActivity() {
         listingHelper.onDataReceived = object : ValueCallback<Array<ListingDirectory>> {
             override fun onReceiveValue(value: Array<ListingDirectory>?) {
                 AppData.listings.addAll(value!!)
-                jobsCompleted.incrementAndGet()
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 
-                if(jobsCompleted.get() == numberOfJobs)
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
                 {
-                    if(!deferred.isCompleted)
-                    {
-                        deferred.complete(jobsCompleted.get())
-                    }
+                    deferred.complete(jobsCompleted.get())
                 }
             }
         }
@@ -119,14 +122,16 @@ class StartupActivity : AppCompatActivity() {
         articleHelper.onDataReceived = object : ValueCallback<Array<Article>> {
             override fun onReceiveValue(value: Array<Article>?) {
                 AppData.articles.addAll(value!!)
-                jobsCompleted.incrementAndGet()
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 
-                if(jobsCompleted.get() == numberOfJobs)
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
                 {
-                    if(!deferred.isCompleted)
-                    {
-                        deferred.complete(jobsCompleted.get())
-                    }
+                    deferred.complete(jobsCompleted.get())
                 }
             }
         }
@@ -136,14 +141,16 @@ class StartupActivity : AppCompatActivity() {
         _40kids40smilesHelper.onDataReceived = object : ValueCallback<_40Kids40Smiles> {
             override fun onReceiveValue(value: _40Kids40Smiles?) {
                 AppData._40kids40smiles = value
-                jobsCompleted.incrementAndGet()
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 
-                if(jobsCompleted.get() == numberOfJobs)
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
                 {
-                    if(!deferred.isCompleted)
-                    {
-                        deferred.complete(jobsCompleted.get())
-                    }
+                    deferred.complete(jobsCompleted.get())
                 }
             }
         }
@@ -153,14 +160,16 @@ class StartupActivity : AppCompatActivity() {
         zachGivesBackHelper.onDataReceived = object : ValueCallback<ZachGivesBack> {
             override fun onReceiveValue(value: ZachGivesBack?) {
                 AppData.zachGivesBack = value
-                jobsCompleted.incrementAndGet()
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 
-                if(jobsCompleted.get() == numberOfJobs)
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
                 {
-                    if(!deferred.isCompleted)
-                    {
-                        deferred.complete(jobsCompleted.get())
-                    }
+                    deferred.complete(jobsCompleted.get())
                 }
             }
         }
@@ -170,14 +179,16 @@ class StartupActivity : AppCompatActivity() {
         garthMyMateHelper.onDataReceived = object : ValueCallback<GarthMyMate> {
             override fun onReceiveValue(value: GarthMyMate?) {
                 AppData.garthMyMate = value
-                jobsCompleted.incrementAndGet()
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 
-                if(jobsCompleted.get() == numberOfJobs)
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
                 {
-                    if(!deferred.isCompleted)
-                    {
-                        deferred.complete(jobsCompleted.get())
-                    }
+                    deferred.complete(jobsCompleted.get())
                 }
             }
         }
@@ -188,6 +199,11 @@ class StartupActivity : AppCompatActivity() {
             override fun onReceiveValue(value: AboutUs?) {
                 AppData.aboutUs = value
                 val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
 
                 if(i == numberOfJobs && !deferred.isCompleted)
                 {
@@ -202,6 +218,11 @@ class StartupActivity : AppCompatActivity() {
             override fun onReceiveValue(value: SportsService?) {
                 AppData.sportsService = value
                 val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
 
                 if(i == numberOfJobs && !deferred.isCompleted)
                 {
@@ -216,6 +237,11 @@ class StartupActivity : AppCompatActivity() {
             override fun onReceiveValue(value: HospitalityService?) {
                 AppData.hospitalityService = value
                 val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
 
                 if(i == numberOfJobs && !deferred.isCompleted)
                 {
@@ -230,6 +256,11 @@ class StartupActivity : AppCompatActivity() {
             override fun onReceiveValue(value: CorporateService?) {
                 AppData.corporateService = value
                 val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
 
                 if(i == numberOfJobs && !deferred.isCompleted)
                 {
@@ -244,6 +275,11 @@ class StartupActivity : AppCompatActivity() {
             override fun onReceiveValue(value: AdvertiseWithUs?) {
                 AppData.advertiseWithUs = value
                 val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
 
                 if(i == numberOfJobs && !deferred.isCompleted)
                 {

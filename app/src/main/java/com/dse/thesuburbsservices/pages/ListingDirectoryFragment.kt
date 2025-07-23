@@ -17,6 +17,7 @@ import com.dse.thesuburbsservices.ScreenNavigate
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingAddress
 import com.dse.thesuburbsservices.data.ListingDirectory
+import com.dse.thesuburbsservices.hidePercentage
 import com.dse.thesuburbsservices.listing_fragment
 import com.dse.thesuburbsservices.net.*
 import com.dse.thesuburbsservices.showLoadingScreen
@@ -95,6 +96,7 @@ class ListingDirectoryFragment : Fragment() {
     private fun listing_onclick(listing: ListingDirectory)
     {
         val dlg = showLoadingScreen(this.requireContext())
+        hidePercentage(dlg)
 
         // Run synchronously.
         CoroutineScope(Dispatchers.Main).launch {
