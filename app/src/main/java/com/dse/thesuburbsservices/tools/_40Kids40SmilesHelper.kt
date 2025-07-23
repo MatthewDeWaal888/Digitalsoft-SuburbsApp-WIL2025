@@ -35,7 +35,9 @@ class _40Kids40SmilesHelper {
             obj.content = doc.getElementsByClass("elementor-widget-container")[10].text()
 
             val converter = HtmlToPlainText()
+            obj.objectivesHeading = doc.getElementsByClass("elementor-element elementor-element-867cceb elementor-widget elementor-widget-heading")[0].child(0).child(0).text()
             obj.objectives = doc.getElementsByClass("elementor-widget-container")[12].text()
+            obj.heading2 = doc.getElementsByClass("elementor-element elementor-element-67a1aaa elementor-widget elementor-widget-heading")[0].child(0).child(0).text()
 
             val _images = doc.getElementsByClass("elementor-image-box-wrapper")
             val _imageCaption = doc.getElementsByClass("elementor-image-box-title")

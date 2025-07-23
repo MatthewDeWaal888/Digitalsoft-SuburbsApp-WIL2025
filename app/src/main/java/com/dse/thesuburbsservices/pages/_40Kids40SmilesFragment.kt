@@ -28,13 +28,18 @@ class _40Kids40SmilesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment__40_kids40_smiles_phone_light, container, false)
 
         // Obtain the views from the root view.
+        val tvHeading1 = view.findViewById<TextView>(R.id.tvHeading1)
+        val tvContent1 = view.findViewById<TextView>(R.id.tvContent1)
+        val tvHeading2 = view.findViewById<TextView>(R.id.tvHeading2)
+        val tvContent2 = view.findViewById<TextView>(R.id.tvContent2)
+        val tvHeading3 = view.findViewById<TextView>(R.id.tvHeading3)
         val layoutView = view.findViewById<LinearLayout>(R.id.layoutView)
-        val tvContent = view.findViewById<TextView>(R.id.tvContent)
 
-        // Construct a string for the tvContent view.
-        val displayText = "${AppData._40kids40smiles?.heading}\n\n${AppData._40kids40smiles?.content}\n\n${AppData._40kids40smiles?.objectives}"
-        // Display the string to the user.
-        tvContent.text = displayText
+        tvHeading1.text = AppData._40kids40smiles?.heading
+        tvContent1.text = AppData._40kids40smiles?.content
+        tvHeading2.text = AppData._40kids40smiles?.objectivesHeading
+        tvContent2.text = AppData._40kids40smiles?.objectives
+        tvHeading3.text = AppData._40kids40smiles?.heading2
 
         // Iteration
         for(i in 0..AppData._40kids40smiles?.images?.size!!-1) {
