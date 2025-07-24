@@ -21,7 +21,9 @@ class AboutUsHelper {
             val html = GET(url)
             val doc = Jsoup.parse(html)
 
+            aboutUs.ourStoryHeading = doc.getElementsByClass("elementor-element elementor-element-6340c72 elementor-widget__width-initial elementor-widget elementor-widget-heading")[0].child(0).child(0).text()
             aboutUs.ourStory = doc.getElementsByClass("elementor-element elementor-element-6f2880c elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor")[0].child(0).text()
+            aboutUs.ourVisionHeading = doc.getElementsByClass("elementor-element elementor-element-8d42b5d elementor-widget__width-initial elementor-widget elementor-widget-heading")[0].child(0).child(0).text()
             aboutUs.ourVision = doc.getElementsByClass("elementor-element elementor-element-13a296e elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor")[0].child(0).text()
         }.invokeOnCompletion {
             onDataReceived?.onReceiveValue(aboutUs)

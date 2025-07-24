@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
             popupMenu.menu.add("Zach Gives Back")
             popupMenu.menu.add("Garth My Mate")
             popupMenu.menu.add("About Us")
-            popupMenu.menu.add("About Us - Sports")
-            popupMenu.menu.add("About Us - Hospitality")
-            popupMenu.menu.add("About Us - Corporate")
+            popupMenu.menu.add("Services - Sports")
+            popupMenu.menu.add("Services - Hospitality")
+            popupMenu.menu.add("Services - Corporate")
             popupMenu.menu.add("Staff Login")
             popupMenu.menu.add("Advertise With Us")
 
@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity() {
                     "Zach Gives Back" -> btnMenu_item6_onclick()
                     "Garth My Mate" -> btnMenu_item7_onclick()
                     "About Us" -> btnMenu_item8_onclick()
-                    "About Us - Sports" -> btnMenu_item9_onclick()
-                    "About Us - Hospitality" -> btnMenu_item10_onclick()
-                    "About Us - Corporate" -> btnMenu_item11_onclick()
+                    "Services - Sports" -> btnMenu_item9_onclick()
+                    "Services - Hospitality" -> btnMenu_item10_onclick()
+                    "Services - Corporate" -> btnMenu_item11_onclick()
                     "Staff Login" -> btnMenu_item12_onclick()
                     "Advertise With Us" -> btnMenu_item13_onclick()
                 }
@@ -141,19 +141,19 @@ class MainActivity : AppCompatActivity() {
         ScreenNavigate(aboutUs_fragment)
     }
 
-    // Occurs when 'About Us - Sports' is clicked.
+    // Occurs when 'Services - Sports' is clicked.
     private fun btnMenu_item9_onclick()
     {
         ScreenNavigate(aboutUsSports_fragment)
     }
 
-    // Occurs when 'About Us - Hospitality' is clicked.
+    // Occurs when 'Services - Hospitality' is clicked.
     private fun btnMenu_item10_onclick()
     {
         ScreenNavigate(aboutUsHospitality_fragment)
     }
 
-    // Occurs when 'About Us - Corporate' is clicked.
+    // Occurs when 'Services - Corporate' is clicked.
     private fun btnMenu_item11_onclick()
     {
         ScreenNavigate(aboutUsCorporate_fragment)
