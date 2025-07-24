@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.csr_fragment
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.net.GET_BYTES
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +40,12 @@ class ZachGivesBackFragment : Fragment() {
             bitmap = BitmapFactory.decodeStream(image_bytes.inputStream())
         }.invokeOnCompletion {
             imageView.setImageDrawable(bitmap?.toDrawable(resources))
+        }
+
+
+        val btnBack = view.findViewById<AppCompatButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            ScreenNavigate(csr_fragment)
         }
         
         return view

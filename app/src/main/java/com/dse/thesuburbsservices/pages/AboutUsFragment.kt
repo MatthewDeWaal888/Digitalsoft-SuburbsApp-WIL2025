@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
 import com.dse.thesuburbsservices.data.AppData
+import com.dse.thesuburbsservices.home_fragment
 
 class AboutUsFragment : Fragment() {
 
@@ -22,11 +25,16 @@ class AboutUsFragment : Fragment() {
         val tvContent1 = view.findViewById<TextView>(R.id.tvContent1)
         val tvHeading2 = view.findViewById<TextView>(R.id.tvHeading2)
         val tvContent2 = view.findViewById<TextView>(R.id.tvContent2)
+        val btnBack = view.findViewById<AppCompatButton>(R.id.btnBack)
 
         tvHeading1.text = AppData.aboutUs?.ourStoryHeading
         tvContent1.text = AppData.aboutUs?.ourStory
         tvHeading2.text = AppData.aboutUs?.ourVisionHeading
         tvContent2.text = AppData.aboutUs?.ourVision
+
+        btnBack.setOnClickListener {
+            ScreenNavigate(home_fragment)
+        }
 
         return view
     }

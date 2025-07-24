@@ -10,8 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.graphics.drawable.toDrawable
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.csr_fragment
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.net.GET_BYTES
 import kotlinx.coroutines.CoroutineScope
@@ -34,12 +37,18 @@ class _40Kids40SmilesFragment : Fragment() {
         val tvContent2 = view.findViewById<TextView>(R.id.tvContent2)
         val tvHeading3 = view.findViewById<TextView>(R.id.tvHeading3)
         val layoutView = view.findViewById<LinearLayout>(R.id.layoutView)
+        val btnBack = view.findViewById<AppCompatButton>(R.id.btnBack)
 
+        // Assign the data to the views.
         tvHeading1.text = AppData._40kids40smiles?.heading
         tvContent1.text = AppData._40kids40smiles?.content
         tvHeading2.text = AppData._40kids40smiles?.objectivesHeading
         tvContent2.text = AppData._40kids40smiles?.objectives
         tvHeading3.text = AppData._40kids40smiles?.heading2
+
+        btnBack.setOnClickListener {
+            ScreenNavigate(csr_fragment)
+        }
 
         // Iteration
         for(i in 0..AppData._40kids40smiles?.images?.size!!-1) {

@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.csr_fragment
 import com.dse.thesuburbsservices.data.AppData
 
 class GarthMyMateFragment : Fragment() {
@@ -21,6 +24,12 @@ class GarthMyMateFragment : Fragment() {
         val tvContent = view.findViewById<TextView>(R.id.tvContent)
         val strContent = "${AppData.garthMyMate?.heading1}\n\n${AppData.garthMyMate?.content1}\n\n${AppData.garthMyMate?.heading2}\n\n${AppData.garthMyMate?.content2}"
         tvContent.text = strContent
+
+
+        val btnBack = view.findViewById<AppCompatButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            ScreenNavigate(csr_fragment)
+        }
 
         return view
     }

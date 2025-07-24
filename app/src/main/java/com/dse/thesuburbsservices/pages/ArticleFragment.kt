@@ -23,6 +23,7 @@ class ArticleFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_article_phone_light, container, false)
 
+        // Get the views from the container.
         val tvArticleTitle = view.findViewById<TextView>(R.id.tvArticleTitle)
         val tvArticleDate = view.findViewById<TextView>(R.id.tvArticleDate)
         val tvArticleHeading = view.findViewById<TextView>(R.id.tvHeading)

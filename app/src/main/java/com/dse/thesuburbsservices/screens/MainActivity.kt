@@ -144,19 +144,19 @@ class MainActivity : AppCompatActivity() {
     // Occurs when 'Services - Sports' is clicked.
     private fun btnMenu_item9_onclick()
     {
-        ScreenNavigate(aboutUsSports_fragment)
+        ScreenNavigate(sportsService_fragment)
     }
 
     // Occurs when 'Services - Hospitality' is clicked.
     private fun btnMenu_item10_onclick()
     {
-        ScreenNavigate(aboutUsHospitality_fragment)
+        ScreenNavigate(hospitalityService_fragment)
     }
 
     // Occurs when 'Services - Corporate' is clicked.
     private fun btnMenu_item11_onclick()
     {
-        ScreenNavigate(aboutUsCorporate_fragment)
+        ScreenNavigate(corporateService_fragment)
     }
 
     // Occurs when 'Staff Login' is clicked.
