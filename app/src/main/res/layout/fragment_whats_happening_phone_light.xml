@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tss_light_background1"
-    tools:context=".pages.WhatsHappeningFragment" >
+    tools:context=".pages.WhatsHappeningFragment">
 
     <LinearLayout
         android:id="@+id/layoutArticles"
