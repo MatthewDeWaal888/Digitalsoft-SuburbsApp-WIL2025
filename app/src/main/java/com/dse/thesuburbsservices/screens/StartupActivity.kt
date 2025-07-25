@@ -69,7 +69,7 @@ class StartupActivity : AppCompatActivity() {
             // Occurs when btnStartNow is clicked.
             binding.btnStartNow.setOnClickListener {
                 val jobsCompleted = AtomicInteger(0)
-                val numberOfJobs = 9
+                val numberOfJobs = 10
                 val deferred = CompletableDeferred<Int>()
 
                 val dlg = showLoadingScreen(this)
@@ -274,6 +274,25 @@ class StartupActivity : AppCompatActivity() {
         advertiseWithUsHelper.onDataReceived = object : ValueCallback<AdvertiseWithUs> {
             override fun onReceiveValue(value: AdvertiseWithUs?) {
                 AppData.advertiseWithUs = value
+                val i = jobsCompleted.incrementAndGet()
+                val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
+
+                runOnUiThread {
+                    setPercentage(dlg, percentage)
+                }
+
+                if(i == numberOfJobs && !deferred.isCompleted)
+                {
+                    deferred.complete(i)
+                }
+            }
+        }
+
+        // Declare and instantiate a CSRHelper object.
+        val csrHelper = CSRHelper()
+        csrHelper.onDataReceived = object : ValueCallback<CSR> {
+            override fun onReceiveValue(value: CSR?) {
+                AppData.csr = value
                 val i = jobsCompleted.incrementAndGet()
                 val percentage = (i / numberOfJobs.toFloat() * 100).toInt()
 

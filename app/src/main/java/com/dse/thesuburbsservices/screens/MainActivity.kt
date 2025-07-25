@@ -2,6 +2,7 @@ package com.dse.thesuburbsservices.screens
 
 import android.os.Bundle
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +23,7 @@ import com.dse.thesuburbsservices.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var popupMenu: PopupMenu
+    lateinit var tvTitle: TextView
 
     // Occurs when the activity (screen) is created.
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             val binding = ActivityMainPhoneLightBinding.inflate(this.layoutInflater)
             // Set the content view to the binding.
             setContentView(binding.root)
+
+            tvTitle = binding.tvTitle
 
             // Initialization
             popupMenu = PopupMenu(this, binding.btnMenu)
@@ -51,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             popupMenu.menu.add("Services - Sports")
             popupMenu.menu.add("Services - Hospitality")
             popupMenu.menu.add("Services - Corporate")
+            popupMenu.menu.add("Contact Us")
             popupMenu.menu.add("Staff Login")
             popupMenu.menu.add("Advertise With Us")
 
@@ -70,8 +75,9 @@ class MainActivity : AppCompatActivity() {
                     "Services - Sports" -> btnMenu_item9_onclick()
                     "Services - Hospitality" -> btnMenu_item10_onclick()
                     "Services - Corporate" -> btnMenu_item11_onclick()
-                    "Staff Login" -> btnMenu_item12_onclick()
-                    "Advertise With Us" -> btnMenu_item13_onclick()
+                    "Contact Us" -> btnMenu_item12_onclick()
+                    "Staff Login" -> btnMenu_item13_onclick()
+                    "Advertise With Us" -> btnMenu_item14_onclick()
                 }
                 true
             }
@@ -96,78 +102,98 @@ class MainActivity : AppCompatActivity() {
     // Occurs when 'Home' is clicked.
     private fun btnMenu_item1_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Home"
         ScreenNavigate(home_fragment)
     }
 
     // Occurs when 'Listing Directory' is clicked.
     private fun btnMenu_item2_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Listing Directory"
         ScreenNavigate(listingDirectory_fragment)
     }
 
     // Occurs when 'What's Happening' is clicked.
     private fun btnMenu_item3_onclick()
     {
+        tvTitle.text = "The Suburbs Services - What's Happening"
         ScreenNavigate(whatshappening_fragment)
     }
 
     // Occurs when 'Corporate Social Responsibility' is clicked.
     private fun btnMenu_item4_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Corporate Social Responsibility"
         ScreenNavigate(csr_fragment)
     }
 
     // Occurs when '40 Kids 40 Smiles' is clicked.
     private fun btnMenu_item5_onclick()
     {
+        tvTitle.text = "The Suburbs Services - 40 Kids 40 Smiles"
         ScreenNavigate(_40kids40smiles_fragment)
     }
 
     // Occurs when 'Zach Gives Back' is clicked.
     private fun btnMenu_item6_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Zach Gives Back"
         ScreenNavigate(zachGivesBack_fragment)
     }
 
     // Occurs when 'Garth My Mate' is clicked.
     private fun btnMenu_item7_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Garth My Mate"
         ScreenNavigate(garthMyMate_fragment)
     }
 
     // Occurs when 'About Us' is clicked.
     private fun btnMenu_item8_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Anout Us"
         ScreenNavigate(aboutUs_fragment)
     }
 
     // Occurs when 'Services - Sports' is clicked.
     private fun btnMenu_item9_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Services - Sports"
         ScreenNavigate(sportsService_fragment)
     }
 
     // Occurs when 'Services - Hospitality' is clicked.
     private fun btnMenu_item10_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Services - Hospitality"
         ScreenNavigate(hospitalityService_fragment)
     }
 
     // Occurs when 'Services - Corporate' is clicked.
     private fun btnMenu_item11_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Services - Corporate"
         ScreenNavigate(corporateService_fragment)
     }
 
-    // Occurs when 'Staff Login' is clicked.
+    // Occurs when 'Contact Us' is clicked.
     private fun btnMenu_item12_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Contact Us"
+        ScreenNavigate(contact_fragment)
+    }
+
+    // Occurs when 'Staff Login' is clicked.
+    private fun btnMenu_item13_onclick()
+    {
+        tvTitle.text = "The Suburbs Services - Staff Login"
         ScreenNavigate(staffLogin_fragment)
     }
 
     // Occurs when 'Advertise With Us' is clicked.
-    private fun btnMenu_item13_onclick()
+    private fun btnMenu_item14_onclick()
     {
+        tvTitle.text = "The Suburbs Services - Advertise With Us"
         ScreenNavigate(advertiseWithUs_fragment)
     }
 }

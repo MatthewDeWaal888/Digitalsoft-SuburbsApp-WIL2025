@@ -38,6 +38,9 @@ class AppData {
         // AdvertiseWithUs
         var advertiseWithUs: AdvertiseWithUs? = null
 
+        // CSR
+        var csr: CSR? = null
+
         // Collections
         var listings = ArrayList<ListingDirectory>()
         var articles = ArrayList<Article>()

@@ -2,4 +2,29 @@
     <string name="app_name">TheSuburbsServices</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="js_submit_message">
+
+        function sendMessage() {
+            document.getElementById(\'form-field-name\').value = \'#name\';
+            document.getElementById(\'form-field-field_b565df7\').value = \'#surname\';
+            document.getElementById(\'form-field-email\').value = \'#email\';
+            document.getElementById(\'form-field-b26ecb6\').value = \'#phone\';
+            document.getElementById(\'form-field-message\').value = \'#message\';
+
+            document.getElementsByClassName(\'elementor-element elementor-element-b99eb70 elementor-button-align-start elementor-mobile-button-align-center elementor-widget elementor-widget-form\')[0].children[0].children[0].children[4].children[5].children[0].click();
+        }
+
+        sendMessage();
+    </string>
+    <string name="js_get_message_submission_status">
+
+        function getStatus() {
+            let statusLabel = document.getElementsByClassName(\'elementor-element elementor-element-b99eb70 elementor-button-align-start elementor-mobile-button-align-center elementor-widget elementor-widget-form\')[0].children[0].children[0].children[5].textContent;
+            return statusLabel;
+        }
+
+        getStatus();
+
+    </string>
 </resources>
