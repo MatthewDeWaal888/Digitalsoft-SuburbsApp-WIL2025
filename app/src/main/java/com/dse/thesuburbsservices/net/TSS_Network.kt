@@ -57,9 +57,10 @@ fun combinePath(rootPath: String, relativePath: String): String
 }
 
 // Sends a message to The Suburbs Services organization.
-fun TSS_SendMessage(context: Context, contactUs: ContactUs)
+fun TSS_SendMessage(context: Context, contactUs: ContactUs, submissionCompleted: ValueCallback<String>?)
 {
     val helper = ContactUsHelper(context)
+    helper.onSubmissionCompleted = submissionCompleted
     helper.onReady = object : ValueCallback<Boolean> {
         override fun onReceiveValue(value: Boolean?) {
             helper.setContactUsInfo(contactUs)

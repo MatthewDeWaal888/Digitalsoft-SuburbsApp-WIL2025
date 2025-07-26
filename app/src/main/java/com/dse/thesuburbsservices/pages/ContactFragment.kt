@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.data.ContactUs
 import com.dse.thesuburbsservices.net.TSS_SendMessage
@@ -41,7 +42,9 @@ class ContactFragment : Fragment() {
             contactUs.phone = strPhone
             contactUs.message = strMessage
 
-            TSS_SendMessage(this.requireContext(), contactUs)
+            TSS_SendMessage(this.requireContext(), contactUs) { result ->
+                Toast.makeText(this.requireContext(), result, Toast.LENGTH_LONG).show()
+            }
         }
 
         return view
