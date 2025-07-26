@@ -26,7 +26,7 @@ class GarthMyMateFragment : Fragment() {
         if(appTheme == APP_THEME_LIGHT)
             view = inflater.inflate(R.layout.fragment_garth_my_mate_phone_light, container, false)
         else
-            view = inflater.inflate(R.layout.fragment_csr_phone_dark, container, false)
+            view = inflater.inflate(R.layout.fragment_garth_my_mate_phone_dark, container, false)
 
         val tvContent = view.findViewById<TextView>(R.id.tvContent)
         val strContent = "${AppData.garthMyMate?.heading1}\n\n${AppData.garthMyMate?.content1}\n\n${AppData.garthMyMate?.heading2}\n\n${AppData.garthMyMate?.content2}"
