@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.home_fragment
 
@@ -19,7 +21,12 @@ class AboutUsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_about_us_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_about_us_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_about_us_phone_dark, container, false)
 
         val tvHeading1 = view.findViewById<TextView>(R.id.tvHeading1)
         val tvContent1 = view.findViewById<TextView>(R.id.tvContent1)

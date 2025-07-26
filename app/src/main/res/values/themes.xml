@@ -7,5 +7,6 @@
 
     <style name="Theme.TheSuburbsServices" parent="Base.Theme.TheSuburbsServices">
         <item name="android:itemBackground">@color/tss_popup_menu</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 fun showLoadingScreen(context: Context): Dialog
 {
     val dlgLoadingScreen = Dialog(context)
-    dlgLoadingScreen.setContentView(R.layout.layout_loading_phone_light)
+    dlgLoadingScreen.setContentView(R.layout.layout_loading_phone)
     dlgLoadingScreen.show()
 
     return dlgLoadingScreen

@@ -12,9 +12,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.article_fragment
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.Article
@@ -35,7 +37,12 @@ class WhatsHappeningFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_whats_happening_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_whats_happening_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_staff_login_phone_dark, container, false)
 
         layoutArticles = view.findViewById<LinearLayout>(R.id.layoutArticles)
         loadContent(AppData.articles.toTypedArray())

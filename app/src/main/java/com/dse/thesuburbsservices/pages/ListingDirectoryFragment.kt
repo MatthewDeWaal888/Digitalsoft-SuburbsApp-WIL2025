@@ -11,9 +11,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.EMPTY_STRING
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.data.ListingAddress
 import com.dse.thesuburbsservices.data.ListingDirectory
@@ -38,7 +40,12 @@ class ListingDirectoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_listing_directory_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_listing_directory_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_listing_directory_phone_dark, container, false)
 
         // Obtain the layoutDisplay view.
         layoutDisplay = view.findViewById<LinearLayout>(R.id.layoutDisplay)
@@ -56,7 +63,7 @@ class ListingDirectoryFragment : Fragment() {
             for(item in value)
             {
                 // Inflate a layoutView object.
-                val layoutView = this.layoutInflater.inflate(R.layout.layout_listing_directory_phone, null)
+                val layoutView = this.layoutInflater.inflate(R.layout.layout_listing_directory_phone_light, null)
 
                 // Obtain the child views from the layoutView.
                 val clImage = layoutView.findViewById<ConstraintLayout>(R.id.clImage)

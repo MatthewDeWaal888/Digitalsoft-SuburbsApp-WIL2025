@@ -9,7 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.showLoadingScreen
 import org.jsoup.examples.HtmlToPlainText
@@ -21,7 +23,12 @@ class ArticleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_article_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_article_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_article_phone_dark, container, false)
 
         // Get the views from the container.
         val tvArticleTitle = view.findViewById<TextView>(R.id.tvArticleTitle)

@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.ContactUs
 import com.dse.thesuburbsservices.net.TSS_SendMessage
 
@@ -19,7 +21,12 @@ class ContactFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_contact_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_contact_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_contact_phone_dark, container, false)
 
         val etName = view.findViewById<EditText>(R.id.etName)
         val etSurname = view.findViewById<EditText>(R.id.etSurname)

@@ -18,6 +18,7 @@ import com.dse.thesuburbsservices.listingDirectory_fragment
 import com.dse.thesuburbsservices.tss_clDisplay
 import com.dse.thesuburbsservices.tss_fragmentManager
 import com.dse.thesuburbsservices.*
+import com.dse.thesuburbsservices.databinding.ActivityMainPhoneDarkBinding
 
 // This class represents the MainActivity class.
 class MainActivity : AppCompatActivity() {
@@ -35,6 +36,72 @@ class MainActivity : AppCompatActivity() {
 
             // Create a binding object for this activity.
             val binding = ActivityMainPhoneLightBinding.inflate(this.layoutInflater)
+            // Set the content view to the binding.
+            setContentView(binding.root)
+
+            tvTitle = binding.tvTitle
+
+            // Initialization
+            popupMenu = PopupMenu(this, binding.btnMenu)
+
+            // Add the menu items to the PopupMenu.
+            popupMenu.menu.add("Home")
+            popupMenu.menu.add("Listing Directory")
+            popupMenu.menu.add("What’s Happening")
+            popupMenu.menu.add("Corporate Social Responsibility")
+            popupMenu.menu.add("40 Kids 40 Smiles")
+            popupMenu.menu.add("Zach Gives Back")
+            popupMenu.menu.add("Garth My Mate")
+            popupMenu.menu.add("About Us")
+            popupMenu.menu.add("Services - Sports")
+            popupMenu.menu.add("Services - Hospitality")
+            popupMenu.menu.add("Services - Corporate")
+            popupMenu.menu.add("Contact Us")
+            popupMenu.menu.add("Staff Login")
+            popupMenu.menu.add("Advertise With Us")
+
+            // Assign an onclick listener to the PopupMenu.
+            popupMenu.setOnMenuItemClickListener {
+                // Case statement.
+                when(it.title)
+                {
+                    "Home" -> btnMenu_item1_onclick()
+                    "Listing Directory" -> btnMenu_item2_onclick()
+                    "What’s Happening" -> btnMenu_item3_onclick()
+                    "Corporate Social Responsibility" -> btnMenu_item4_onclick()
+                    "40 Kids 40 Smiles" -> btnMenu_item5_onclick()
+                    "Zach Gives Back" -> btnMenu_item6_onclick()
+                    "Garth My Mate" -> btnMenu_item7_onclick()
+                    "About Us" -> btnMenu_item8_onclick()
+                    "Services - Sports" -> btnMenu_item9_onclick()
+                    "Services - Hospitality" -> btnMenu_item10_onclick()
+                    "Services - Corporate" -> btnMenu_item11_onclick()
+                    "Contact Us" -> btnMenu_item12_onclick()
+                    "Staff Login" -> btnMenu_item13_onclick()
+                    "Advertise With Us" -> btnMenu_item14_onclick()
+                }
+                true
+            }
+
+            tss_fragmentManager = this.supportFragmentManager
+            tss_clDisplay = binding.clDisplay
+            ScreenNavigate(home_fragment)
+
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+
+            // Occurs when the user clicked the drop-down menu.
+            binding.btnMenu.setOnClickListener {
+                popupMenu.show()
+            }
+        }
+        else if(appTheme == APP_THEME_DARK)
+        {
+            // Create a binding object for this activity.
+            val binding = ActivityMainPhoneDarkBinding.inflate(this.layoutInflater)
             // Set the content view to the binding.
             setContentView(binding.root)
 

@@ -12,8 +12,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.graphics.drawable.toDrawable
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.csr_fragment
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.net.GET_BYTES
@@ -28,7 +30,12 @@ class _40Kids40SmilesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment__40_kids40_smiles_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment__40_kids40_smiles_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment__40_kids40_smiles_phone_dark, container, false)
 
         // Obtain the views from the root view.
         val tvHeading1 = view.findViewById<TextView>(R.id.tvHeading1)
@@ -57,7 +64,7 @@ class _40Kids40SmilesFragment : Fragment() {
                 val index = i
 
                 // Declarations
-                val layoutView2 = inflater.inflate(R.layout.layout_40kids_40smiles, null)
+                val layoutView2 = if(appTheme == APP_THEME_LIGHT) inflater.inflate(R.layout.layout_40kids_40smiles_light, null) else inflater.inflate(R.layout.layout_40kids_40smiles_dark, null)
                 val image = layoutView2.findViewById<ImageView>(R.id.imageView)
                 val tvImageTitle = layoutView2.findViewById<TextView>(R.id.tvImageTitle)
                 var bitmap: Bitmap? = null

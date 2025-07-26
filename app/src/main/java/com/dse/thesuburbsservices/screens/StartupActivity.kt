@@ -19,6 +19,7 @@ import com.dse.thesuburbsservices.data.GarthMyMate
 import com.dse.thesuburbsservices.data.ListingDirectory
 import com.dse.thesuburbsservices.data.ZachGivesBack
 import com.dse.thesuburbsservices.data._40Kids40Smiles
+import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneDarkBinding
 import com.dse.thesuburbsservices.databinding.ActivityStartupPhoneLightBinding
 import com.dse.thesuburbsservices.setPercentage
 import com.dse.thesuburbsservices.showLoadingScreen
@@ -91,7 +92,38 @@ class StartupActivity : AppCompatActivity() {
         // Check if the appTheme is in Dark Theme mode.
         else if(appTheme == APP_THEME_DARK)
         {
+            // Create a binding for this activity.
+            val binding = ActivityStartupPhoneDarkBinding.inflate(this.layoutInflater)
+            // Set the content view to this activity.
+            setContentView(binding.root)
 
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+
+            // Occurs when btnStartNow is clicked.
+            binding.btnStartNow.setOnClickListener {
+                val jobsCompleted = AtomicInteger(0)
+                val numberOfJobs = 10
+                val deferred = CompletableDeferred<Int>()
+
+                val dlg = showLoadingScreen(this)
+                getContent(deferred, jobsCompleted, numberOfJobs, dlg)
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    deferred.await()
+                }.invokeOnCompletion {
+                    dlg.dismiss()
+                    startApp()
+                }
+            }
+
+            // Occurs when btnExit is clicked.
+            binding.btnExit.setOnClickListener {
+                this.finish()
+            }
         }
     }
 

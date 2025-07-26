@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import com.dse.thesuburbsservices.APP_THEME_LIGHT
 import com.dse.thesuburbsservices.R
 import com.dse.thesuburbsservices.ScreenNavigate
+import com.dse.thesuburbsservices.appTheme
 import com.dse.thesuburbsservices.data.AppData
 import com.dse.thesuburbsservices.listingDirectory_fragment
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -27,7 +29,12 @@ class ListingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_listing_phone_light, container, false)
+        var view: View? = null
+
+        if(appTheme == APP_THEME_LIGHT)
+            view = inflater.inflate(R.layout.fragment_listing_phone_light, container, false)
+        else
+            view = inflater.inflate(R.layout.fragment_listing_phone_light, container, false)
 
         val listingImage = view.findViewById<ImageView>(R.id.listingImage)
         val tvListingName = view.findViewById<TextView>(R.id.tvListingName)
